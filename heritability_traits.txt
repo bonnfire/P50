@@ -1,0 +1,2083 @@
+0.221568 6.098e-10 bending_stiffness
+0.506046 0 length
+0.329116 5.551e-17 maximum_force
+0.320997 2.22e-16 maximum_moment
+0.237672 1.184e-10 normalized_bending_stiffness
+0.207789 3.485e-08 post_yield_displacement
+0.247879 2.931e-11 yield_force
+0.251343 2.247e-11 yield_moment
+0.094985 0.0001479 con_condi_dist_diff_score
+0.11167 3.571e-05 d1_avg_vel
+0.250173 1.11e-16 d1_total_dist
+0.146212 2.335e-08 d2_avg_vel
+0.307741 0 d2_total_dist
+0.10935 4.24e-05 d3_avg_vel
+0.111387 6.267e-06 d3_total_dist
+0.019794 0.2216 d3_total_hw_bouts
+0.058165 0.01982 d3_total_hw_dur
+0.072152 0.002402 d7_avg_vel
+0.164061 4.361e-09 d7_total_dist
+0.087851 0.0002455 d7_total_hw_bouts
+0.134483 1.585e-07 d7_total_hw_dur
+0.133238 2.935e-07 d8_avg_vel
+0.255185 5.551e-17 d8_total_dist
+0.056152 0.01366 degree_sens_dist
+0.063541 0.003918 degree_sens_stereotypy
+0.089951 0.0001363 active_inactive_diff
+0.041116 0.04444 active_inactive_ratio
+0.201993 5.551e-16 active_responses
+0.149277 4.657e-09 inactive_responses
+0.153857 4.883e-11 incentive_value_index
+0.198411 0 lever_presses
+0.136708 3.215e-10 AvgLatLev_D4D5
+0.115555 2.569e-07 AvgLatMag_D4D5
+0.049929 0.004859 IndexLearning
+0.145372 4.376e-11 IndexScore_D4D5
+0.151759 3.912e-12 LatencyScore_D4D5
+0.155438 4.138e-13 LeverCS_D4D5
+0.126752 3.412e-08 MagazineCS_D4D5
+0.142562 2.216e-08 MagazineNCS_D4D5
+0.142254 9.63e-11 ProbDiff_D4D5
+0.144759 1.987e-11 ProbLever_D4D5
+0.131547 9.47e-08 ProbMag_D4D5
+0.131737 3.54e-09 ResponseBias_D4D5
+0.224556 0 d1_avg_lev_lat
+0.092351 3.615e-05 d1_avg_mag_lat
+0.134364 3.853e-10 d1_index
+0.092856 6.415e-06 d1_latency_score
+0.245347 0 d1_lever_cs
+0.09644 1.709e-05 d1_magazine_cs
+0.167752 3.361e-10 d1_magazine_ncs
+0.107895 1.419e-07 d1_prob_diff
+0.235538 0 d1_prob_lev
+0.102161 3.614e-06 d1_prob_mag
+0.17933 7.216e-16 d1_response_bias
+0.142771 2.332e-11 d2_avg_lev_lat
+0.059858 0.002002 d2_avg_mag_lat
+0.120136 3.919e-09 d2_index
+0.091873 4.219e-06 d2_latency_score
+0.168825 1.332e-15 d2_lever_cs
+0.0442 0.01389 d2_magazine_cs
+0.070907 0.001849 d2_magazine_ncs
+0.119827 7.109e-09 d2_prob_diff
+0.171283 1.277e-15 d2_prob_lev
+0.053539 0.006614 d2_prob_mag
+0.138426 5.844e-11 d2_response_bias
+0.125431 2.794e-08 d3_avg_lev_lat
+0.095062 1.108e-05 d3_avg_mag_lat
+0.118868 1.444e-08 d3_index
+0.122709 4.263e-09 d3_latency_score
+0.149689 9.537e-12 d3_lever_cs
+0.094394 7.879e-06 d3_magazine_cs
+0.047431 0.01882 d3_magazine_ncs
+0.122976 4.332e-09 d3_prob_diff
+0.15129 1.879e-12 d3_prob_lev
+0.099047 3.684e-06 d3_prob_mag
+0.126296 9.635e-09 d3_response_bias
+0.105214 8.544e-07 d4_avg_lev_lat
+0.115555 2.569e-07 d4_avg_mag_lat
+0.129838 2.411e-09 d4_index
+0.137843 2.593e-10 d4_latency_score
+0.127117 1.03e-09 d4_lever_cs
+0.124015 2.673e-08 d4_magazine_cs
+0.132948 2.488e-07 d4_magazine_ncs
+0.124584 1.061e-08 d4_prob_diff
+0.142127 8.573e-12 d4_prob_lev
+0.107988 2.139e-06 d4_prob_mag
+0.113375 9.931e-08 d4_response_bias
+0.140766 1.068e-10 d5_avg_lev_lat
+0.063344 0.002257 d5_avg_mag_lat
+0.130798 6.707e-10 d5_index
+0.140862 2.153e-11 d5_latency_score
+0.161527 2.393e-14 d5_lever_cs
+0.084018 0.0001435 d5_magazine_cs
+0.100231 1.762e-05 d5_magazine_ncs
+0.119307 7.079e-09 d5_prob_diff
+0.16573 1.221e-15 d5_prob_lev
+0.093211 6.222e-05 d5_prob_mag
+0.099018 4.44e-06 d5_response_bias
+0.090044 0.001187 hab1_time_center
+1e-06 0.5 hab1_time_side_f
+0.01146 0.3218 hab1_time_side_n
+0.349163 0 hab1_total_crossovers
+0.239133 3.838e-13 hab1_total_distance
+0.269195 2.776e-16 hab1_total_velocity
+0.089754 0.0005473 hab2_time_center
+0.013639 0.2938 hab2_time_side_f
+1e-06 0.5 hab2_time_side_n
+0.263796 0 hab2_total_crossovers
+0.218769 2.52e-12 hab2_total_distance
+0.221433 1.107e-13 hab2_total_velocity
+0.018374 0.2223 novel_familiar
+0.015401 0.2573 percentage_f
+0.02566 0.1482 percentage_n
+0.088999 0.0006858 test_time_center
+0.014126 0.2772 test_time_side_f
+0.031331 0.1086 test_time_side_n
+0.365854 0 test_total_crossovers
+0.248276 1.532e-13 test_total_distance
+0.274206 2.22e-16 test_total_velocity
+0.284221 3.684e-12 cntrdurat
+0.322676 0 cntrfreq
+0.083453 0.002197 cntrlate
+0.295378 2.776e-16 dist2ctrmean
+0.299941 0 dist2ctrtotal
+0.378991 0 totaldistance
+0.247253 2.683e-13 cntrdurat
+0.208963 6.542e-12 cntrfreq
+0.099692 5.474e-05 cntrlate
+0.24882 1.316e-13 dist2ctrmean
+0.220766 1.65e-12 dist2ctrtotal
+0.287228 0 totaldistance
+0.237085 0 active_inactive_ratio_all_days
+0.133464 2.695e-10 active_inactive_ratio_first_three_median
+0.189612 2.776e-16 active_inactive_ratio_last_three_median
+0.162416 4.12e-09 day10_activelick
+0.243284 8.882e-16 day10_inactivelick
+0.178201 5.847e-09 day10_infusion
+0.157109 1.15e-07 day11_activelick
+0.152384 2.345e-07 day11_inactivelick
+0.172077 2.241e-09 day11_infusion
+0.142778 1.404e-08 day1_activelick
+0.150507 2.55e-07 day1_inactivelick
+0.131773 5.474e-07 day1_infusion
+0.100963 3.726e-05 day20_activelick
+0.113386 1.576e-05 day20_inactivelick
+0.08823 0.0005989 day20_infusion
+0.145639 1.306e-07 day2_activelick
+0.161621 1.374e-08 day2_inactivelick
+0.145486 7.346e-07 day2_infusion
+0.170219 8.047e-10 day3_activelick
+0.138086 2.122e-08 day3_inactivelick
+0.135268 1.131e-05 day3_infusion
+0.166706 1.655e-12 day4_activelick
+0.084715 0.0001648 day4_inactivelick
+0.134133 1.705e-06 day4_infusion
+0.210052 0 day5_activelick
+0.107159 8.998e-05 day5_inactivelick
+0.163455 1.653e-10 day5_infusion
+0.194071 2.559e-14 day6_activelick
+0.133426 1.487e-08 day6_inactivelick
+0.155395 8.897e-09 day6_infusion
+0.159606 1.899e-10 day7_activelick
+0.160458 2.327e-09 day7_inactivelick
+0.133337 1.819e-06 day7_infusion
+0.152935 7.655e-09 day8_activelick
+0.152865 1.621e-07 day8_inactivelick
+0.113284 7.677e-05 day8_infusion
+0.160631 2.297e-09 day9_activelick
+0.166256 9.501e-10 day9_inactivelick
+0.115105 4.706e-05 day9_infusion
+0.172141 1.966e-11 day_10_active_inactive_ratio
+0.15148 8.6e-07 day_11_active_inactive_ratio
+0.108226 4.849e-07 day_1_active_inactive_ratio
+0.139212 1.791e-08 day_20_active_inactive_ratio
+0.094646 3.214e-05 day_2_active_inactive_ratio
+0.114763 1.36e-06 day_3_active_inactive_ratio
+0.168407 5.662e-15 day_4_active_inactive_ratio
+0.170746 1.249e-14 day_5_active_inactive_ratio
+0.189515 1.349e-14 day_6_active_inactive_ratio
+0.163103 3.622e-12 day_7_active_inactive_ratio
+0.171339 4.957e-12 day_8_active_inactive_ratio
+0.169617 2.435e-12 day_9_active_inactive_ratio
+0.160562 2.352e-10 first_three_days_activelick_median
+0.195349 5.945e-14 first_three_days_activelick_total
+0.142793 9.268e-07 first_three_days_infusion_median
+0.15836 2.07e-08 first_three_days_infusion_total
+0.165693 4.015e-10 last_three_days_activelick_median
+0.185493 1.999e-11 last_three_days_activelick_total
+0.147239 1.773e-06 last_three_days_infusion_median
+0.178697 2.905e-10 last_three_days_infusion_total
+0.151643 5.729e-10 slope_nicotine_infusion
+0.248669 0 total_activelick_10days
+0.233236 1.088e-14 total_inactivelick_10days
+0.212672 5.551e-17 total_infusion_10days
+0.164809 3.067e-08 dist2objzonemean
+0.153039 2.689e-07 dist2objzonetotal
+0.264836 1.11e-16 dist2socmean
+0.265108 5.551e-17 dist2soctotal
+0.160665 6.95e-08 inobjzonedura
+0.177477 3.232e-11 inobjzonefreq
+0.082011 0.001432 inobjzonelate
+0.275358 0 insoczonedura
+0.21487 0 insoczonefreq
+0.14232 4.625e-09 insoczonelate
+0.280762 0 totaldistance
+0.351924 0 centerdura
+0.220247 2.994e-12 centerfreq
+0.003063 0.4475 centerlate
+0.403094 0 closedura
+0.22056 4.33e-15 closefreq
+0.078371 0.001093 closelate
+0.307855 0 opendura
+0.229446 8.316e-14 openfreq
+1e-06 0.5 openlate
+0.289859 0 totaldistance
+0.044104 0.02566 change_in_locomotor_activity
+0.064959 0.001917 change_in_time_on_cs
+0.037126 0.04919 post_test_time_on_cs
+0.089631 4.175e-05 pre_test_time_on_cs
+0.120985 5.742e-07 trial_1_cocaine_dist_mm
+0.164839 2.936e-11 trial_1_saline_dist_mm
+0.0649 0.0005706 trial_2_cocaine_dist_mm
+0.171504 1.5e-12 trial_2_saline_dist_mm
+0.05792 0.004126 trial_3_cocaine_dist_mm
+0.095638 6.297e-06 trial_3_saline_dist_mm
+0.084687 7.121e-05 trial_4_cocaine_dist_mm
+0.129754 6.293e-08 trial_4_saline_dist_mm
+0.195256 3.845e-13 AvgLatLev_D4D5
+0.058857 0.003541 AvgLatMag_D4D5
+0.188964 4.469e-14 IndexLearning
+0.144973 3.099e-09 IndexScore_D4D5
+0.116519 7.41e-07 LatencyScore_D4D5
+0.214536 7.216e-16 LeverCS_D4D5
+0.086382 4.23e-05 MagazineCS_D4D5
+0.144548 8.779e-10 MagazineNCS_D4D5
+0.140102 5.815e-09 ProbDiff_D4D5
+0.197903 3.408e-14 ProbLever_D4D5
+0.083959 7.127e-05 ProbMag_D4D5
+0.191028 3.547e-14 ResponseBias_D4D5
+0.141081 2.831e-09 d1_avg_lev_lat
+0.186404 1.243e-14 d1_avg_mag_lat
+0.125588 5.104e-08 d1_index
+0.135648 5.121e-09 d1_latency_score
+0.130934 8.283e-10 d1_lever_cs
+0.175505 4.768e-14 d1_magazine_cs
+0.182871 2.331e-15 d1_magazine_ncs
+0.117594 6.738e-08 d1_prob_diff
+0.120838 1.164e-08 d1_prob_lev
+0.179327 6.162e-15 d1_prob_mag
+0.096846 7.005e-06 d1_response_bias
+0.137388 2.207e-08 d2_avg_lev_lat
+0.080136 5.227e-05 d2_avg_mag_lat
+0.034281 0.04362 d2_index
+0.01874 0.1594 d2_latency_score
+0.140592 7.494e-10 d2_lever_cs
+0.070575 0.0003974 d2_magazine_cs
+0.135792 7.674e-08 d2_magazine_ncs
+0.018805 0.1651 d2_prob_diff
+0.140506 5.467e-10 d2_prob_lev
+0.085519 2.4e-05 d2_prob_mag
+0.120052 1.061e-07 d2_response_bias
+0.171534 3.913e-11 d3_avg_lev_lat
+0.025333 0.11 d3_avg_mag_lat
+0.061997 0.003537 d3_index
+0.039179 0.03889 d3_latency_score
+0.171528 8.191e-12 d3_lever_cs
+0.031074 0.07273 d3_magazine_cs
+0.111911 2.921e-06 d3_magazine_ncs
+0.052735 0.01008 d3_prob_diff
+0.166729 2.811e-11 d3_prob_lev
+0.045433 0.01433 d3_prob_mag
+0.141179 1.084e-08 d3_response_bias
+0.167615 9.167e-11 d4_avg_lev_lat
+0.058857 0.003541 d4_avg_mag_lat
+0.122736 2.251e-07 d4_index
+0.097147 1.977e-05 d4_latency_score
+0.192688 1.841e-13 d4_lever_cs
+0.06193 0.001959 d4_magazine_cs
+0.101529 5.289e-06 d4_magazine_ncs
+0.112898 1.347e-06 d4_prob_diff
+0.185199 1.379e-12 d4_prob_lev
+0.063888 0.001419 d4_prob_mag
+0.170781 9.482e-12 d4_response_bias
+0.215376 2.165e-15 d5_avg_lev_lat
+0.111033 1.307e-06 d5_avg_mag_lat
+0.153171 6.11e-10 d5_index
+0.133915 2.981e-08 d5_latency_score
+0.209042 7.216e-16 d5_lever_cs
+0.113995 5.064e-07 d5_magazine_cs
+0.142116 1.402e-09 d5_magazine_ncs
+0.156391 1.646e-10 d5_prob_diff
+0.186114 7.461e-14 d5_prob_lev
+0.107066 2.81e-06 d5_prob_mag
+0.202515 1.554e-15 d5_response_bias
+0.195256 3.845e-13 pavca_NY_AvgLatLev_D4D5
+0.058857 0.003541 pavca_NY_AvgLatMag_D4D5
+0.188964 4.469e-14 pavca_NY_IndexLearning
+0.144973 3.099e-09 pavca_NY_IndexScore_D4D5
+0.116519 7.41e-07 pavca_NY_LatencyScore_D4D5
+0.214536 7.216e-16 pavca_NY_LeverCS_D4D5
+0.086382 4.23e-05 pavca_NY_MagazineCS_D4D5
+0.144548 8.779e-10 pavca_NY_MagazineNCS_D4D5
+0.140102 5.815e-09 pavca_NY_ProbDiff_D4D5
+0.197903 3.408e-14 pavca_NY_ProbLever_D4D5
+0.083959 7.127e-05 pavca_NY_ProbMag_D4D5
+0.191028 3.547e-14 pavca_NY_ResponseBias_D4D5
+0.141081 2.831e-09 pavca_NY_d1_avg_lev_lat
+0.186404 1.243e-14 pavca_NY_d1_avg_mag_lat
+0.125588 5.104e-08 pavca_NY_d1_index
+0.135648 5.121e-09 pavca_NY_d1_latency_score
+0.130934 8.283e-10 pavca_NY_d1_lever_cs
+0.175505 4.768e-14 pavca_NY_d1_magazine_cs
+0.182871 2.331e-15 pavca_NY_d1_magazine_ncs
+0.117594 6.738e-08 pavca_NY_d1_prob_diff
+0.120838 1.164e-08 pavca_NY_d1_prob_lev
+0.179327 6.162e-15 pavca_NY_d1_prob_mag
+0.096846 7.005e-06 pavca_NY_d1_response_bias
+0.137388 2.207e-08 pavca_NY_d2_avg_lev_lat
+0.080136 5.227e-05 pavca_NY_d2_avg_mag_lat
+0.034281 0.04362 pavca_NY_d2_index
+0.01874 0.1594 pavca_NY_d2_latency_score
+0.140592 7.494e-10 pavca_NY_d2_lever_cs
+0.070575 0.0003974 pavca_NY_d2_magazine_cs
+0.135792 7.674e-08 pavca_NY_d2_magazine_ncs
+0.018805 0.1651 pavca_NY_d2_prob_diff
+0.140506 5.467e-10 pavca_NY_d2_prob_lev
+0.085519 2.4e-05 pavca_NY_d2_prob_mag
+0.120052 1.061e-07 pavca_NY_d2_response_bias
+0.171534 3.913e-11 pavca_NY_d3_avg_lev_lat
+0.025333 0.11 pavca_NY_d3_avg_mag_lat
+0.061997 0.003537 pavca_NY_d3_index
+0.039179 0.03889 pavca_NY_d3_latency_score
+0.171528 8.191e-12 pavca_NY_d3_lever_cs
+0.031074 0.07273 pavca_NY_d3_magazine_cs
+0.111911 2.921e-06 pavca_NY_d3_magazine_ncs
+0.052735 0.01008 pavca_NY_d3_prob_diff
+0.166729 2.811e-11 pavca_NY_d3_prob_lev
+0.045433 0.01433 pavca_NY_d3_prob_mag
+0.141179 1.084e-08 pavca_NY_d3_response_bias
+0.167615 9.167e-11 pavca_NY_d4_avg_lev_lat
+0.058857 0.003541 pavca_NY_d4_avg_mag_lat
+0.122736 2.251e-07 pavca_NY_d4_index
+0.097147 1.977e-05 pavca_NY_d4_latency_score
+0.192688 1.841e-13 pavca_NY_d4_lever_cs
+0.06193 0.001959 pavca_NY_d4_magazine_cs
+0.101529 5.289e-06 pavca_NY_d4_magazine_ncs
+0.112898 1.347e-06 pavca_NY_d4_prob_diff
+0.185199 1.379e-12 pavca_NY_d4_prob_lev
+0.063888 0.001419 pavca_NY_d4_prob_mag
+0.170781 9.482e-12 pavca_NY_d4_response_bias
+0.215376 2.165e-15 pavca_NY_d5_avg_lev_lat
+0.111033 1.307e-06 pavca_NY_d5_avg_mag_lat
+0.153171 6.11e-10 pavca_NY_d5_index
+0.133915 2.981e-08 pavca_NY_d5_latency_score
+0.209042 7.216e-16 pavca_NY_d5_lever_cs
+0.113995 5.064e-07 pavca_NY_d5_magazine_cs
+0.142116 1.402e-09 pavca_NY_d5_magazine_ncs
+0.156391 1.646e-10 pavca_NY_d5_prob_diff
+0.186114 7.461e-14 pavca_NY_d5_prob_lev
+0.107066 2.81e-06 pavca_NY_d5_prob_mag
+0.202515 1.554e-15 pavca_NY_d5_response_bias
+0.13436 1.962e-09 active_inactive_diff
+0.051223 0.01069 active_inactive_ratio
+0.236848 0 active_responses
+0.189133 1.112e-11 inactive_responses
+0.190197 1.538e-14 incentive_value_index
+0.220177 0 lever_presses
+0.264044 0 number_reinforcers
+0.204041 5.551e-17 lr_act10_5
+0.158354 6.622e-13 lr_act13_5
+0.202022 1.11e-16 lr_act16_5
+0.219517 0 lr_act1_5
+0.248839 0 lr_act4_5
+0.217635 0 lr_act7_5
+0.209758 1.11e-16 lr_act_max
+0.290154 0 lr_active
+0.081029 5.686e-05 lr_inact10_5
+0.110821 3.894e-08 lr_inact13_5
+0.090796 1.841e-06 lr_inact16_5
+0.110692 4.857e-07 lr_inact1_5
+0.088115 5.298e-05 lr_inact4_5
+0.104966 2.983e-07 lr_inact7_5
+0.113325 5.866e-08 lr_inact_max
+0.155486 5.551e-14 lr_inactive
+0.267409 0 lr_reinforcers
+0.139275 7.618e-10 lr_relactive
+0.185411 5.218e-15 lr_tot10_5
+0.174879 7.772e-16 lr_tot13_5
+0.211412 0 lr_tot16_5
+0.200252 5.551e-16 lr_tot1_5
+0.198226 3.886e-16 lr_tot4_5
+0.202389 5.551e-17 lr_tot7_5
+0.198754 6.661e-16 lr_tot_max
+0.278759 0 lr_total
+0.072402 0.0001119 pre_act10_5
+0.096711 1.388e-05 pre_act13_5
+0.072881 0.0001461 pre_act16_5
+0.122182 7.732e-09 pre_act1_5
+0.057046 0.004419 pre_act4_5
+0.055639 0.002148 pre_act7_5
+0.103755 4.123e-06 pre_act_max
+0.166057 4.863e-12 pre_active
+0.082918 5.131e-05 pre_inact10_5
+0.110033 2.566e-07 pre_inact13_5
+0.064928 0.0006776 pre_inact16_5
+0.091131 1.791e-05 pre_inact1_5
+0.073206 0.001567 pre_inact4_5
+0.077514 0.0002082 pre_inact7_5
+0.107796 7.182e-07 pre_inact_max
+0.176055 8.094e-14 pre_inactive
+0.063187 0.002024 pre_relactive
+0.116586 3.757e-08 pre_tot10_5
+0.142971 6.189e-10 pre_tot13_5
+0.112117 1.558e-07 pre_tot16_5
+0.137563 4.206e-10 pre_tot1_5
+0.08809 0.0001711 pre_tot4_5
+0.099875 1.354e-06 pre_tot7_5
+0.127681 3.799e-09 pre_tot_max
+0.209371 5.551e-17 pre_total
+0.199426 5.551e-17 corr
+0.144743 1.082e-09 devmedrt
+0.062339 0.001922 devmedrt10_5
+0.001806 0.4656 devmedrt13_5
+0.062847 0.003309 devmedrt16_5
+0.097591 5.981e-06 devmedrt1_5
+0.004575 0.4035 devmedrt4_5
+0.068645 0.001533 devmedrt7_5
+0.090709 5.154e-05 devmedrt_max
+0.0256 0.1167 devmedrt_slope
+0.200653 1.665e-16 falsealarm
+0.120734 7.799e-07 falsealarm10_5
+0.14401 7.202e-10 falsealarm13_5
+0.088474 1.864e-05 falsealarm16_5
+0.168391 2.996e-13 falsealarm1_5
+0.133183 5.772e-09 falsealarm4_5
+0.148126 7.207e-11 falsealarm7_5
+0.179924 1.471e-14 falsealarm_max
+0.143884 1.088e-09 falsealarm_slope
+0.199426 5.551e-17 leftcorr
+0.193572 4.441e-16 lefttrials
+0.216843 0 meanrt
+0.150515 6.627e-11 meanrt10_5
+0.111477 3.024e-07 meanrt13_5
+0.167156 5.903e-11 meanrt16_5
+0.179053 2.645e-13 meanrt1_5
+0.166113 1.206e-11 meanrt4_5
+0.173528 4.033e-13 meanrt7_5
+0.190335 7.994e-15 meanrt_max
+0.065616 0.0006056 meanrt_slope
+0.147164 1.228e-10 medianrt10_5
+0.120694 1.212e-08 medianrt13_5
+0.153025 2.025e-10 medianrt16_5
+0.160454 5.987e-12 medianrt1_5
+0.152169 3.37e-11 medianrt4_5
+0.15526 2.185e-12 medianrt7_5
+0.203394 0 medrt
+0.163169 1.699e-12 medrt_max
+0.045035 0.00681 medrt_sa
+0.06318 0.0005842 medrt_slope
+0.111658 7.714e-06 ommisions
+0.20226 0 peropfalsealarm
+0.145279 1.159e-10 peropfalsealarm_max
+0.039321 0.01474 peropfalsealarm_slope
+0.17068 7.805e-13 peropinit
+0.136443 2.394e-09 peropinit_max
+0.075246 0.000103 peropinit_slope
+0.196187 2.776e-16 pinit
+0.197856 4.829e-15 pinit_max
+0.139278 1.051e-08 pinit_slope
+0.134155 3.775e-10 pint10_5
+0.159922 5.177e-12 pint13_5
+0.154716 2.199e-12 pint16_5
+0.136833 7.206e-09 pint1_5
+0.198163 1.332e-15 pint4_5
+0.172787 5.629e-14 pint7_5
+0.094688 2.696e-05 pofalsealarm10_5
+0.113883 1.98e-06 pofalsealarm13_5
+0.028005 0.07334 pofalsealarm16_5
+0.161719 3.075e-13 pofalsealarm1_5
+0.140263 1.576e-09 pofalsealarm4_5
+0.152268 7.756e-12 pofalsealarm7_5
+0.147467 6.232e-10 popint10_5
+0.111177 3.092e-07 popint13_5
+0.075719 0.0001741 popint16_5
+0.149196 3.188e-10 popint1_5
+0.161485 5.406e-11 popint4_5
+0.153304 1.028e-11 popint7_5
+0.190345 8.443e-14 sdrt
+0.193572 4.441e-16 totaltrials
+0.0993 9.186e-07 trials10_5
+0.122647 4.202e-09 trials13_5
+0.11552 1.017e-07 trials16_5
+0.140519 6.053e-10 trials1_5
+0.183163 1.943e-14 trials4_5
+0.180418 6.726e-13 trials7_5
+0.207291 1.11e-16 trials_max
+0.134039 2.208e-09 trials_slope
+0.266108 0 idpt0
+0.16776 8.507e-13 idpt1200
+0.22089 5.551e-17 idpt1800
+0.172188 2.203e-11 idpt2400
+0.298626 0 idpt600
+0.092868 9.122e-05 idptauc
+0.275518 0 idptmax
+0.267092 0 pc0
+0.187829 1.747e-13 pc1200
+0.198238 1.776e-15 pc1800
+0.10524 8.287e-06 pc2400
+0.296047 0 pc600
+0.19513 7.775e-13 pcd0
+0.260993 0 pcrate0
+0.192374 1.218e-13 pcrate1200
+0.190808 1.024e-13 pcrate1800
+0.140322 1.205e-08 pcrate2400
+0.256123 0 pcrate600
+0.058074 0.00629 pcrateauc
+0.26427 0 pcratemax
+0.165867 2.473e-13 rf0
+0.129637 2.164e-09 rf1200
+0.169976 9.463e-12 rf1800
+0.159008 6.64e-11 rf2400
+0.194778 3.031e-14 rf600
+0.169432 1.241e-11 rfrate0
+0.156202 4.506e-11 rfrate1200
+0.183894 3.004e-12 rfrate1800
+0.17078 1.297e-10 rfrate2400
+0.115515 2.46e-07 rfrate600
+0.248246 0 rfrateav
+0.207251 1.554e-15 sess0
+0.111967 5.697e-07 sess1200
+0.116673 3.363e-07 sess1800
+1e-06 0.5 sess2400
+0.154319 4.13e-10 sess600
+0.245887 0 tip0
+0.188197 6.234e-14 tip1200
+0.182648 5.662e-15 tip1800
+0.133007 3.926e-09 tip2400
+0.241238 0 tip600
+0.086109 0.0001274 tipauc
+0.149951 1.258e-10 tipmax
+0.128935 2.581e-07 tw0
+0.088963 9.377e-05 tw1200
+0.077641 0.0001422 tw1800
+0.099536 2.5e-06 tw2400
+0.045525 0.0232 tw600
+0.218549 1.11e-16 wrate0
+0.151702 6.013e-10 wrate1200
+0.177772 1.8e-11 wrate1800
+0.133781 4.44e-08 wrate2400
+0.170572 1.585e-11 wrate600
+0.228138 9.641e-13 midconrf
+0.00616 0.4016 midconrfq
+0.183131 1.125e-08 midconrs
+0.092657 0.0005769 midconrs_10_5
+0.132188 2.526e-06 midconrs_13_5
+0.110583 0.0002732 midconrs_16_5
+0.048419 0.03825 midconrs_1_5
+0.075016 0.004603 midconrs_4_5
+0.082393 0.003052 midconrs_7_5
+0.07724 0.005697 midconrs_max
+0.210064 1.42e-11 midconti
+0.081993 0.001557 midconti_10_5
+0.08321 0.00232 midconti_13_5
+0.012386 0.3497 midconti_16_5
+0.098082 0.0007081 midconti_1_5
+0.110344 0.0001854 midconti_4_5
+0.081909 0.003157 midconti_7_5
+0.162464 1.617e-07 midconti_max
+0.223906 1.979e-12 opconrf
+0.107252 4.69e-05 opconrfq
+0.235886 8.049e-15 opconrs
+0.138329 1.069e-06 opconrs_10_5
+0.137268 3.971e-07 opconrs_13_5
+0.175145 2.484e-09 opconrs_16_5
+0.079525 0.002196 opconrs_1_5
+0.126799 2.996e-05 opconrs_4_5
+0.14813 4.02e-07 opconrs_7_5
+0.137011 1.015e-06 opconrs_max
+0.169426 2.949e-09 opconti
+0.06102 0.01708 opconti_10_5
+0.066406 0.01232 opconti_13_5
+0.09725 0.0007049 opconti_16_5
+0.105103 0.0002133 opconti_1_5
+0.081395 0.003367 opconti_4_5
+0.018304 0.2618 opconti_7_5
+0.127083 6.907e-06 opconti_max
+0.230588 1.501e-12 socialrf
+0.112283 4.642e-05 socialrfq
+0.163231 6.886e-08 socialrs
+0.111491 4.348e-05 socialrs_10_5
+0.110482 7.675e-06 socialrs_13_5
+0.145914 1.039e-06 socialrs_16_5
+0.066282 0.01034 socialrs_1_5
+0.017324 0.2703 socialrs_4_5
+0.119748 3.619e-05 socialrs_7_5
+0.091561 0.0008347 socialrs_max
+0.187044 1.778e-09 socialti
+0.072278 0.005175 socialti_10_5
+0.074287 0.005574 socialti_13_5
+0.074714 0.01424 socialti_16_5
+0.071901 0.004169 socialti_1_5
+0.086194 0.002113 socialti_4_5
+0.066639 0.003711 socialti_7_5
+0.113053 1.86e-05 socialti_max
+0.305905 0 totalrf
+0.222952 2.532e-12 totalrs
+0.167533 4.545e-08 totalrs_10_5
+0.135126 1.715e-07 totalrs_13_5
+0.172666 1.871e-08 totalrs_16_5
+0.08732 0.00138 totalrs_1_5
+0.09288 0.001524 totalrs_4_5
+0.175355 1.46e-08 totalrs_7_5
+0.085398 0.00143 totalrs_max
+0.220681 2.787e-14 totalti
+0.177377 4.445e-09 totalti_10_5
+0.12306 3.556e-06 totalti_13_5
+0.136871 1.958e-06 totalti_16_5
+0.10319 0.0001206 totalti_1_5
+0.080709 0.002882 totalti_4_5
+0.085731 0.0004419 totalti_7_5
+0.174351 2.158e-10 totalti_max
+0.19409 1.721e-15 act10_5
+0.135079 1.546e-08 act13_5
+0.144508 1.195e-09 act16_5
+0.139971 5.359e-09 act1_5
+0.153244 1.419e-11 act4_5
+0.170135 1.769e-11 act7_5
+0.243238 0 activity
+0.100525 1.288e-06 cent10_5
+0.063853 0.0008021 cent13_5
+0.122658 7.09e-09 cent16_5
+0.092965 4.205e-05 cent1_5
+0.071735 0.001077 cent4_5
+0.120482 1.785e-07 cent7_5
+0.1468 1.407e-10 center_loco
+0.208995 1.665e-16 dis10_5
+0.134622 2.873e-08 dis13_5
+0.138555 1.576e-08 dis16_5
+0.281181 0 dis1_5
+0.184595 1.388e-15 dis4_5
+0.180937 2.484e-13 dis7_5
+0.286449 0 distance
+0.188625 8.66e-14 maxact
+0.106367 3.346e-06 maxcent
+0.288307 0 maxdis
+0.130521 1.351e-06 maxrear
+0.284068 0 rear
+0.173878 2.559e-14 rear10_5
+0.063021 0.002068 rear13_5
+0.109536 1.224e-06 rear16_5
+0.126744 2.42e-06 rear1_5
+0.171671 1.499e-15 rear4_5
+0.185623 1.46e-14 rear7_5
+0.332237 0 bmi_w_tail
+0.270079 0 bmi_wo_tail
+0.439767 0 body_weight_g
+0.330174 0 body_weight_wean
+0.378551 0 epididymis_fat_weight_g
+0.099348 0 glucose_reading_mg_dl
+0.185613 0 glucose_wean
+0.36394 0 left_kidney_weight_g
+0.403566 0 length_w_tail_cm
+0.337649 0 length_wo_tail_cm
+0.140746 0 liver_left_weight_g
+0.16991 0 liver_right_weight_g
+0.29357 0 mi_heart_weight_g
+0.28591 0 parametrial_fat_weight_g
+0.391502 0 retroperitoneal_fat_weight_g
+0.358514 0 right_kidney_weight_g
+1e-06 0.5 A
+0.057491 0.1307 A2
+0.081461 0.06593 A3
+0.018158 0.3539 C
+0.050534 0.152 C2
+0.076203 0.07148 C3
+1e-06 0.5 CM2
+1e-06 0.5 CM3
+1e-06 0.5 CM3_1
+0.012173 0.3994 CP
+1e-06 0.5 CP2
+0.009244 0.4223 CP3
+1e-06 0.5 Cy
+1e-06 0.5 Cy2
+1e-06 0.5 Cy3
+1e-06 0.5 MM
+0.001157 0.4886 MM2
+1e-06 0.5 MM3
+1e-06 0.5 NEXLR
+1e-06 0.5 NEXLR2
+1e-06 0.5 NEXLR_1
+0.016305 0.3605 P
+0.092877 0.03941 P2
+0.105585 0.02655 P3
+0.221568 bending_stiffness 
+0.506046 length 
+0.329116 maximum_force 
+0.320997 maximum_moment 
+0.237672 normalized_bending_stiffness 
+0.207789 post_yield_displacement 
+0.247879 yield_force 
+0.251343 yield_moment 
+0.094985 con_condi_dist_diff_score 
+0.11167 d1_avg_vel 
+0.250173 d1_total_dist 
+0.146212 d2_avg_vel 
+0.307741 d2_total_dist 
+0.10935 d3_avg_vel 
+0.111387 d3_total_dist 
+0.019794 d3_total_hw_bouts 
+0.058165 d3_total_hw_dur 
+0.072152 d7_avg_vel 
+0.164061 d7_total_dist 
+0.087851 d7_total_hw_bouts 
+0.134483 d7_total_hw_dur 
+0.133238 d8_avg_vel 
+0.255185 d8_total_dist 
+0.056152 degree_sens_dist 
+0.063541 degree_sens_stereotypy 
+0.089951 active_inactive_diff 
+0.041116 active_inactive_ratio 
+0.201993 active_responses 
+0.149277 inactive_responses 
+0.153857 incentive_value_index 
+0.198411 lever_presses 
+0.136708 AvgLatLev_D4D5 
+0.115555 AvgLatMag_D4D5 
+0.049929 IndexLearning 
+0.145372 IndexScore_D4D5 
+0.151759 LatencyScore_D4D5 
+0.155438 LeverCS_D4D5 
+0.126752 MagazineCS_D4D5 
+0.142562 MagazineNCS_D4D5 
+0.142254 ProbDiff_D4D5 
+0.144759 ProbLever_D4D5 
+0.131547 ProbMag_D4D5 
+0.131737 ResponseBias_D4D5 
+0.224556 d1_avg_lev_lat 
+0.092351 d1_avg_mag_lat 
+0.134364 d1_index 
+0.092856 d1_latency_score 
+0.245347 d1_lever_cs 
+0.09644 d1_magazine_cs 
+0.167752 d1_magazine_ncs 
+0.107895 d1_prob_diff 
+0.235538 d1_prob_lev 
+0.102161 d1_prob_mag 
+0.17933 d1_response_bias 
+0.142771 d2_avg_lev_lat 
+0.059858 d2_avg_mag_lat 
+0.120136 d2_index 
+0.091873 d2_latency_score 
+0.168825 d2_lever_cs 
+0.0442 d2_magazine_cs 
+0.070907 d2_magazine_ncs 
+0.119827 d2_prob_diff 
+0.171283 d2_prob_lev 
+0.053539 d2_prob_mag 
+0.138426 d2_response_bias 
+0.125431 d3_avg_lev_lat 
+0.095062 d3_avg_mag_lat 
+0.118868 d3_index 
+0.122709 d3_latency_score 
+0.149689 d3_lever_cs 
+0.094394 d3_magazine_cs 
+0.047431 d3_magazine_ncs 
+0.122976 d3_prob_diff 
+0.15129 d3_prob_lev 
+0.099047 d3_prob_mag 
+0.126296 d3_response_bias 
+0.105214 d4_avg_lev_lat 
+0.115555 d4_avg_mag_lat 
+0.129838 d4_index 
+0.137843 d4_latency_score 
+0.127117 d4_lever_cs 
+0.124015 d4_magazine_cs 
+0.132948 d4_magazine_ncs 
+0.124584 d4_prob_diff 
+0.142127 d4_prob_lev 
+0.107988 d4_prob_mag 
+0.113375 d4_response_bias 
+0.140766 d5_avg_lev_lat 
+0.063344 d5_avg_mag_lat 
+0.130798 d5_index 
+0.140862 d5_latency_score 
+0.161527 d5_lever_cs 
+0.084018 d5_magazine_cs 
+0.100231 d5_magazine_ncs 
+0.119307 d5_prob_diff 
+0.16573 d5_prob_lev 
+0.093211 d5_prob_mag 
+0.099018 d5_response_bias 
+0.090044 hab1_time_center 
+1e-06 hab1_time_side_f 
+0.01146 hab1_time_side_n 
+0.349163 hab1_total_crossovers 
+0.239133 hab1_total_distance 
+0.269195 hab1_total_velocity 
+0.089754 hab2_time_center 
+0.013639 hab2_time_side_f 
+1e-06 hab2_time_side_n 
+0.263796 hab2_total_crossovers 
+0.218769 hab2_total_distance 
+0.221433 hab2_total_velocity 
+0.018374 novel_familiar 
+0.015401 percentage_f 
+0.02566 percentage_n 
+0.088999 test_time_center 
+0.014126 test_time_side_f 
+0.031331 test_time_side_n 
+0.365854 test_total_crossovers 
+0.248276 test_total_distance 
+0.274206 test_total_velocity 
+0.284221 cntrdurat 
+0.322676 cntrfreq 
+0.083453 cntrlate 
+0.295378 dist2ctrmean 
+0.299941 dist2ctrtotal 
+0.378991 totaldistance 
+0.247253 cntrdurat 
+0.208963 cntrfreq 
+0.099692 cntrlate 
+0.24882 dist2ctrmean 
+0.220766 dist2ctrtotal 
+0.287228 totaldistance 
+0.237085 active_inactive_ratio_all_days 
+0.133464 active_inactive_ratio_first_three_median 
+0.189612 active_inactive_ratio_last_three_median 
+0.162416 day10_activelick 
+0.243284 day10_inactivelick 
+0.178201 day10_infusion 
+0.157109 day11_activelick 
+0.152384 day11_inactivelick 
+0.172077 day11_infusion 
+0.142778 day1_activelick 
+0.150507 day1_inactivelick 
+0.131773 day1_infusion 
+0.100963 day20_activelick 
+0.113386 day20_inactivelick 
+0.08823 day20_infusion 
+0.145639 day2_activelick 
+0.161621 day2_inactivelick 
+0.145486 day2_infusion 
+0.170219 day3_activelick 
+0.138086 day3_inactivelick 
+0.135268 day3_infusion 
+0.166706 day4_activelick 
+0.084715 day4_inactivelick 
+0.134133 day4_infusion 
+0.210052 day5_activelick 
+0.107159 day5_inactivelick 
+0.163455 day5_infusion 
+0.194071 day6_activelick 
+0.133426 day6_inactivelick 
+0.155395 day6_infusion 
+0.159606 day7_activelick 
+0.160458 day7_inactivelick 
+0.133337 day7_infusion 
+0.152935 day8_activelick 
+0.152865 day8_inactivelick 
+0.113284 day8_infusion 
+0.160631 day9_activelick 
+0.166256 day9_inactivelick 
+0.115105 day9_infusion 
+0.172141 day_10_active_inactive_ratio 
+0.15148 day_11_active_inactive_ratio 
+0.108226 day_1_active_inactive_ratio 
+0.139212 day_20_active_inactive_ratio 
+0.094646 day_2_active_inactive_ratio 
+0.114763 day_3_active_inactive_ratio 
+0.168407 day_4_active_inactive_ratio 
+0.170746 day_5_active_inactive_ratio 
+0.189515 day_6_active_inactive_ratio 
+0.163103 day_7_active_inactive_ratio 
+0.171339 day_8_active_inactive_ratio 
+0.169617 day_9_active_inactive_ratio 
+0.160562 first_three_days_activelick_median 
+0.195349 first_three_days_activelick_total 
+0.142793 first_three_days_infusion_median 
+0.15836 first_three_days_infusion_total 
+0.165693 last_three_days_activelick_median 
+0.185493 last_three_days_activelick_total 
+0.147239 last_three_days_infusion_median 
+0.178697 last_three_days_infusion_total 
+0.151643 slope_nicotine_infusion 
+0.248669 total_activelick_10days 
+0.233236 total_inactivelick_10days 
+0.212672 total_infusion_10days 
+0.164809 dist2objzonemean 
+0.153039 dist2objzonetotal 
+0.264836 dist2socmean 
+0.265108 dist2soctotal 
+0.160665 inobjzonedura 
+0.177477 inobjzonefreq 
+0.082011 inobjzonelate 
+0.275358 insoczonedura 
+0.21487 insoczonefreq 
+0.14232 insoczonelate 
+0.280762 totaldistance 
+0.351924 centerdura 
+0.220247 centerfreq 
+0.003063 centerlate 
+0.403094 closedura 
+0.22056 closefreq 
+0.078371 closelate 
+0.307855 opendura 
+0.229446 openfreq 
+1e-06 openlate 
+0.289859 totaldistance 
+0.044104 change_in_locomotor_activity 
+0.064959 change_in_time_on_cs 
+0.037126 post_test_time_on_cs 
+0.089631 pre_test_time_on_cs 
+0.120985 trial_1_cocaine_dist_mm 
+0.164839 trial_1_saline_dist_mm 
+0.0649 trial_2_cocaine_dist_mm 
+0.171504 trial_2_saline_dist_mm 
+0.05792 trial_3_cocaine_dist_mm 
+0.095638 trial_3_saline_dist_mm 
+0.084687 trial_4_cocaine_dist_mm 
+0.129754 trial_4_saline_dist_mm 
+0.195256 AvgLatLev_D4D5 
+0.058857 AvgLatMag_D4D5 
+0.188964 IndexLearning 
+0.144973 IndexScore_D4D5 
+0.116519 LatencyScore_D4D5 
+0.214536 LeverCS_D4D5 
+0.086382 MagazineCS_D4D5 
+0.144548 MagazineNCS_D4D5 
+0.140102 ProbDiff_D4D5 
+0.197903 ProbLever_D4D5 
+0.083959 ProbMag_D4D5 
+0.191028 ResponseBias_D4D5 
+0.141081 d1_avg_lev_lat 
+0.186404 d1_avg_mag_lat 
+0.125588 d1_index 
+0.135648 d1_latency_score 
+0.130934 d1_lever_cs 
+0.175505 d1_magazine_cs 
+0.182871 d1_magazine_ncs 
+0.117594 d1_prob_diff 
+0.120838 d1_prob_lev 
+0.179327 d1_prob_mag 
+0.096846 d1_response_bias 
+0.137388 d2_avg_lev_lat 
+0.080136 d2_avg_mag_lat 
+0.034281 d2_index 
+0.01874 d2_latency_score 
+0.140592 d2_lever_cs 
+0.070575 d2_magazine_cs 
+0.135792 d2_magazine_ncs 
+0.018805 d2_prob_diff 
+0.140506 d2_prob_lev 
+0.085519 d2_prob_mag 
+0.120052 d2_response_bias 
+0.171534 d3_avg_lev_lat 
+0.025333 d3_avg_mag_lat 
+0.061997 d3_index 
+0.039179 d3_latency_score 
+0.171528 d3_lever_cs 
+0.031074 d3_magazine_cs 
+0.111911 d3_magazine_ncs 
+0.052735 d3_prob_diff 
+0.166729 d3_prob_lev 
+0.045433 d3_prob_mag 
+0.141179 d3_response_bias 
+0.167615 d4_avg_lev_lat 
+0.058857 d4_avg_mag_lat 
+0.122736 d4_index 
+0.097147 d4_latency_score 
+0.192688 d4_lever_cs 
+0.06193 d4_magazine_cs 
+0.101529 d4_magazine_ncs 
+0.112898 d4_prob_diff 
+0.185199 d4_prob_lev 
+0.063888 d4_prob_mag 
+0.170781 d4_response_bias 
+0.215376 d5_avg_lev_lat 
+0.111033 d5_avg_mag_lat 
+0.153171 d5_index 
+0.133915 d5_latency_score 
+0.209042 d5_lever_cs 
+0.113995 d5_magazine_cs 
+0.142116 d5_magazine_ncs 
+0.156391 d5_prob_diff 
+0.186114 d5_prob_lev 
+0.107066 d5_prob_mag 
+0.202515 d5_response_bias 
+0.195256 pavca_NY_AvgLatLev_D4D5 
+0.058857 pavca_NY_AvgLatMag_D4D5 
+0.188964 pavca_NY_IndexLearning 
+0.144973 pavca_NY_IndexScore_D4D5 
+0.116519 pavca_NY_LatencyScore_D4D5 
+0.214536 pavca_NY_LeverCS_D4D5 
+0.086382 pavca_NY_MagazineCS_D4D5 
+0.144548 pavca_NY_MagazineNCS_D4D5 
+0.140102 pavca_NY_ProbDiff_D4D5 
+0.197903 pavca_NY_ProbLever_D4D5 
+0.083959 pavca_NY_ProbMag_D4D5 
+0.191028 pavca_NY_ResponseBias_D4D5 
+0.141081 pavca_NY_d1_avg_lev_lat 
+0.186404 pavca_NY_d1_avg_mag_lat 
+0.125588 pavca_NY_d1_index 
+0.135648 pavca_NY_d1_latency_score 
+0.130934 pavca_NY_d1_lever_cs 
+0.175505 pavca_NY_d1_magazine_cs 
+0.182871 pavca_NY_d1_magazine_ncs 
+0.117594 pavca_NY_d1_prob_diff 
+0.120838 pavca_NY_d1_prob_lev 
+0.179327 pavca_NY_d1_prob_mag 
+0.096846 pavca_NY_d1_response_bias 
+0.137388 pavca_NY_d2_avg_lev_lat 
+0.080136 pavca_NY_d2_avg_mag_lat 
+0.034281 pavca_NY_d2_index 
+0.01874 pavca_NY_d2_latency_score 
+0.140592 pavca_NY_d2_lever_cs 
+0.070575 pavca_NY_d2_magazine_cs 
+0.135792 pavca_NY_d2_magazine_ncs 
+0.018805 pavca_NY_d2_prob_diff 
+0.140506 pavca_NY_d2_prob_lev 
+0.085519 pavca_NY_d2_prob_mag 
+0.120052 pavca_NY_d2_response_bias 
+0.171534 pavca_NY_d3_avg_lev_lat 
+0.025333 pavca_NY_d3_avg_mag_lat 
+0.061997 pavca_NY_d3_index 
+0.039179 pavca_NY_d3_latency_score 
+0.171528 pavca_NY_d3_lever_cs 
+0.031074 pavca_NY_d3_magazine_cs 
+0.111911 pavca_NY_d3_magazine_ncs 
+0.052735 pavca_NY_d3_prob_diff 
+0.166729 pavca_NY_d3_prob_lev 
+0.045433 pavca_NY_d3_prob_mag 
+0.141179 pavca_NY_d3_response_bias 
+0.167615 pavca_NY_d4_avg_lev_lat 
+0.058857 pavca_NY_d4_avg_mag_lat 
+0.122736 pavca_NY_d4_index 
+0.097147 pavca_NY_d4_latency_score 
+0.192688 pavca_NY_d4_lever_cs 
+0.06193 pavca_NY_d4_magazine_cs 
+0.101529 pavca_NY_d4_magazine_ncs 
+0.112898 pavca_NY_d4_prob_diff 
+0.185199 pavca_NY_d4_prob_lev 
+0.063888 pavca_NY_d4_prob_mag 
+0.170781 pavca_NY_d4_response_bias 
+0.215376 pavca_NY_d5_avg_lev_lat 
+0.111033 pavca_NY_d5_avg_mag_lat 
+0.153171 pavca_NY_d5_index 
+0.133915 pavca_NY_d5_latency_score 
+0.209042 pavca_NY_d5_lever_cs 
+0.113995 pavca_NY_d5_magazine_cs 
+0.142116 pavca_NY_d5_magazine_ncs 
+0.156391 pavca_NY_d5_prob_diff 
+0.186114 pavca_NY_d5_prob_lev 
+0.107066 pavca_NY_d5_prob_mag 
+0.202515 pavca_NY_d5_response_bias 
+0.13436 active_inactive_diff 
+0.051223 active_inactive_ratio 
+0.236848 active_responses 
+0.189133 inactive_responses 
+0.190197 incentive_value_index 
+0.220177 lever_presses 
+0.264044 number_reinforcers 
+0.204041 lr_act10_5 
+0.158354 lr_act13_5 
+0.202022 lr_act16_5 
+0.219517 lr_act1_5 
+0.248839 lr_act4_5 
+0.217635 lr_act7_5 
+0.209758 lr_act_max 
+0.290154 lr_active 
+0.081029 lr_inact10_5 
+0.110821 lr_inact13_5 
+0.090796 lr_inact16_5 
+0.110692 lr_inact1_5 
+0.088115 lr_inact4_5 
+0.104966 lr_inact7_5 
+0.113325 lr_inact_max 
+0.155486 lr_inactive 
+0.267409 lr_reinforcers 
+0.139275 lr_relactive 
+0.185411 lr_tot10_5 
+0.174879 lr_tot13_5 
+0.211412 lr_tot16_5 
+0.200252 lr_tot1_5 
+0.198226 lr_tot4_5 
+0.202389 lr_tot7_5 
+0.198754 lr_tot_max 
+0.278759 lr_total 
+0.072402 pre_act10_5 
+0.096711 pre_act13_5 
+0.072881 pre_act16_5 
+0.122182 pre_act1_5 
+0.057046 pre_act4_5 
+0.055639 pre_act7_5 
+0.103755 pre_act_max 
+0.166057 pre_active 
+0.082918 pre_inact10_5 
+0.110033 pre_inact13_5 
+0.064928 pre_inact16_5 
+0.091131 pre_inact1_5 
+0.073206 pre_inact4_5 
+0.077514 pre_inact7_5 
+0.107796 pre_inact_max 
+0.176055 pre_inactive 
+0.063187 pre_relactive 
+0.116586 pre_tot10_5 
+0.142971 pre_tot13_5 
+0.112117 pre_tot16_5 
+0.137563 pre_tot1_5 
+0.08809 pre_tot4_5 
+0.099875 pre_tot7_5 
+0.127681 pre_tot_max 
+0.209371 pre_total 
+0.199426 corr 
+0.144743 devmedrt 
+0.062339 devmedrt10_5 
+0.001806 devmedrt13_5 
+0.062847 devmedrt16_5 
+0.097591 devmedrt1_5 
+0.004575 devmedrt4_5 
+0.068645 devmedrt7_5 
+0.090709 devmedrt_max 
+0.0256 devmedrt_slope 
+0.200653 falsealarm 
+0.120734 falsealarm10_5 
+0.14401 falsealarm13_5 
+0.088474 falsealarm16_5 
+0.168391 falsealarm1_5 
+0.133183 falsealarm4_5 
+0.148126 falsealarm7_5 
+0.179924 falsealarm_max 
+0.143884 falsealarm_slope 
+0.199426 leftcorr 
+0.193572 lefttrials 
+0.216843 meanrt 
+0.150515 meanrt10_5 
+0.111477 meanrt13_5 
+0.167156 meanrt16_5 
+0.179053 meanrt1_5 
+0.166113 meanrt4_5 
+0.173528 meanrt7_5 
+0.190335 meanrt_max 
+0.065616 meanrt_slope 
+0.147164 medianrt10_5 
+0.120694 medianrt13_5 
+0.153025 medianrt16_5 
+0.160454 medianrt1_5 
+0.152169 medianrt4_5 
+0.15526 medianrt7_5 
+0.203394 medrt 
+0.163169 medrt_max 
+0.045035 medrt_sa 
+0.06318 medrt_slope 
+0.111658 ommisions 
+0.20226 peropfalsealarm 
+0.145279 peropfalsealarm_max 
+0.039321 peropfalsealarm_slope 
+0.17068 peropinit 
+0.136443 peropinit_max 
+0.075246 peropinit_slope 
+0.196187 pinit 
+0.197856 pinit_max 
+0.139278 pinit_slope 
+0.134155 pint10_5 
+0.159922 pint13_5 
+0.154716 pint16_5 
+0.136833 pint1_5 
+0.198163 pint4_5 
+0.172787 pint7_5 
+0.094688 pofalsealarm10_5 
+0.113883 pofalsealarm13_5 
+0.028005 pofalsealarm16_5 
+0.161719 pofalsealarm1_5 
+0.140263 pofalsealarm4_5 
+0.152268 pofalsealarm7_5 
+0.147467 popint10_5 
+0.111177 popint13_5 
+0.075719 popint16_5 
+0.149196 popint1_5 
+0.161485 popint4_5 
+0.153304 popint7_5 
+0.190345 sdrt 
+0.193572 totaltrials 
+0.0993 trials10_5 
+0.122647 trials13_5 
+0.11552 trials16_5 
+0.140519 trials1_5 
+0.183163 trials4_5 
+0.180418 trials7_5 
+0.207291 trials_max 
+0.134039 trials_slope 
+0.266108 idpt0 
+0.16776 idpt1200 
+0.22089 idpt1800 
+0.172188 idpt2400 
+0.298626 idpt600 
+0.092868 idptauc 
+0.275518 idptmax 
+0.267092 pc0 
+0.187829 pc1200 
+0.198238 pc1800 
+0.10524 pc2400 
+0.296047 pc600 
+0.19513 pcd0 
+0.260993 pcrate0 
+0.192374 pcrate1200 
+0.190808 pcrate1800 
+0.140322 pcrate2400 
+0.256123 pcrate600 
+0.058074 pcrateauc 
+0.26427 pcratemax 
+0.165867 rf0 
+0.129637 rf1200 
+0.169976 rf1800 
+0.159008 rf2400 
+0.194778 rf600 
+0.169432 rfrate0 
+0.156202 rfrate1200 
+0.183894 rfrate1800 
+0.17078 rfrate2400 
+0.115515 rfrate600 
+0.248246 rfrateav 
+0.207251 sess0 
+0.111967 sess1200 
+0.116673 sess1800 
+1e-06 sess2400 
+0.154319 sess600 
+0.245887 tip0 
+0.188197 tip1200 
+0.182648 tip1800 
+0.133007 tip2400 
+0.241238 tip600 
+0.086109 tipauc 
+0.149951 tipmax 
+0.128935 tw0 
+0.088963 tw1200 
+0.077641 tw1800 
+0.099536 tw2400 
+0.045525 tw600 
+0.218549 wrate0 
+0.151702 wrate1200 
+0.177772 wrate1800 
+0.133781 wrate2400 
+0.170572 wrate600 
+0.228138 midconrf 
+0.00616 midconrfq 
+0.183131 midconrs 
+0.092657 midconrs_10_5 
+0.132188 midconrs_13_5 
+0.110583 midconrs_16_5 
+0.048419 midconrs_1_5 
+0.075016 midconrs_4_5 
+0.082393 midconrs_7_5 
+0.07724 midconrs_max 
+0.210064 midconti 
+0.081993 midconti_10_5 
+0.08321 midconti_13_5 
+0.012386 midconti_16_5 
+0.098082 midconti_1_5 
+0.110344 midconti_4_5 
+0.081909 midconti_7_5 
+0.162464 midconti_max 
+0.223906 opconrf 
+0.107252 opconrfq 
+0.235886 opconrs 
+0.138329 opconrs_10_5 
+0.137268 opconrs_13_5 
+0.175145 opconrs_16_5 
+0.079525 opconrs_1_5 
+0.126799 opconrs_4_5 
+0.14813 opconrs_7_5 
+0.137011 opconrs_max 
+0.169426 opconti 
+0.06102 opconti_10_5 
+0.066406 opconti_13_5 
+0.09725 opconti_16_5 
+0.105103 opconti_1_5 
+0.081395 opconti_4_5 
+0.018304 opconti_7_5 
+0.127083 opconti_max 
+0.230588 socialrf 
+0.112283 socialrfq 
+0.163231 socialrs 
+0.111491 socialrs_10_5 
+0.110482 socialrs_13_5 
+0.145914 socialrs_16_5 
+0.066282 socialrs_1_5 
+0.017324 socialrs_4_5 
+0.119748 socialrs_7_5 
+0.091561 socialrs_max 
+0.187044 socialti 
+0.072278 socialti_10_5 
+0.074287 socialti_13_5 
+0.074714 socialti_16_5 
+0.071901 socialti_1_5 
+0.086194 socialti_4_5 
+0.066639 socialti_7_5 
+0.113053 socialti_max 
+0.305905 totalrf 
+0.222952 totalrs 
+0.167533 totalrs_10_5 
+0.135126 totalrs_13_5 
+0.172666 totalrs_16_5 
+0.08732 totalrs_1_5 
+0.09288 totalrs_4_5 
+0.175355 totalrs_7_5 
+0.085398 totalrs_max 
+0.220681 totalti 
+0.177377 totalti_10_5 
+0.12306 totalti_13_5 
+0.136871 totalti_16_5 
+0.10319 totalti_1_5 
+0.080709 totalti_4_5 
+0.085731 totalti_7_5 
+0.174351 totalti_max 
+0.19409 act10_5 
+0.135079 act13_5 
+0.144508 act16_5 
+0.139971 act1_5 
+0.153244 act4_5 
+0.170135 act7_5 
+0.243238 activity 
+0.100525 cent10_5 
+0.063853 cent13_5 
+0.122658 cent16_5 
+0.092965 cent1_5 
+0.071735 cent4_5 
+0.120482 cent7_5 
+0.1468 center_loco 
+0.208995 dis10_5 
+0.134622 dis13_5 
+0.138555 dis16_5 
+0.281181 dis1_5 
+0.184595 dis4_5 
+0.180937 dis7_5 
+0.286449 distance 
+0.188625 maxact 
+0.106367 maxcent 
+0.288307 maxdis 
+0.130521 maxrear 
+0.284068 rear 
+0.173878 rear10_5 
+0.063021 rear13_5 
+0.109536 rear16_5 
+0.126744 rear1_5 
+0.171671 rear4_5 
+0.185623 rear7_5 
+0.332237 bmi_w_tail 
+0.270079 bmi_wo_tail 
+0.439767 body_weight_g 
+0.330174 body_weight_wean 
+0.378551 epididymis_fat_weight_g 
+0.099348 glucose_reading_mg_dl 
+0.185613 glucose_wean 
+0.36394 left_kidney_weight_g 
+0.403566 length_w_tail_cm 
+0.337649 length_wo_tail_cm 
+0.140746 liver_left_weight_g 
+0.16991 liver_right_weight_g 
+0.29357 mi_heart_weight_g 
+0.28591 parametrial_fat_weight_g 
+0.391502 retroperitoneal_fat_weight_g 
+0.358514 right_kidney_weight_g 
+1e-06 A 
+0.057491 A2 
+0.081461 A3 
+0.018158 C 
+0.050534 C2 
+0.076203 C3 
+1e-06 CM2 
+1e-06 CM3 
+1e-06 CM3_1 
+0.012173 CP 
+1e-06 CP2 
+0.009244 CP3 
+1e-06 Cy 
+1e-06 Cy2 
+1e-06 Cy3 
+1e-06 MM 
+0.001157 MM2 
+1e-06 MM3 
+1e-06 NEXLR 
+1e-06 NEXLR2 
+1e-06 NEXLR_1 
+0.016305 P 
+0.092877 P2 
+0.105585 P3 
+0.221568  
+0.506046  
+0.329116  
+0.320997  
+0.237672  
+0.207789  
+0.247879  
+0.251343  
+0.094985  
+0.11167  
+0.250173  
+0.146212  
+0.307741  
+0.10935  
+0.111387  
+0.019794  
+0.058165  
+0.072152  
+0.164061  
+0.087851  
+0.134483  
+0.133238  
+0.255185  
+0.056152  
+0.063541  
+0.089951  
+0.041116  
+0.201993  
+0.149277  
+0.153857  
+0.198411  
+0.136708  
+0.115555  
+0.049929  
+0.145372  
+0.151759  
+0.155438  
+0.126752  
+0.142562  
+0.142254  
+0.144759  
+0.131547  
+0.131737  
+0.224556  
+0.092351  
+0.134364  
+0.092856  
+0.245347  
+0.09644  
+0.167752  
+0.107895  
+0.235538  
+0.102161  
+0.17933  
+0.142771  
+0.059858  
+0.120136  
+0.091873  
+0.168825  
+0.0442  
+0.070907  
+0.119827  
+0.171283  
+0.053539  
+0.138426  
+0.125431  
+0.095062  
+0.118868  
+0.122709  
+0.149689  
+0.094394  
+0.047431  
+0.122976  
+0.15129  
+0.099047  
+0.126296  
+0.105214  
+0.115555  
+0.129838  
+0.137843  
+0.127117  
+0.124015  
+0.132948  
+0.124584  
+0.142127  
+0.107988  
+0.113375  
+0.140766  
+0.063344  
+0.130798  
+0.140862  
+0.161527  
+0.084018  
+0.100231  
+0.119307  
+0.16573  
+0.093211  
+0.099018  
+0.090044  
+1e-06  
+0.01146  
+0.349163  
+0.239133  
+0.269195  
+0.089754  
+0.013639  
+1e-06  
+0.263796  
+0.218769  
+0.221433  
+0.018374  
+0.015401  
+0.02566  
+0.088999  
+0.014126  
+0.031331  
+0.365854  
+0.248276  
+0.274206  
+0.284221  
+0.322676  
+0.083453  
+0.295378  
+0.299941  
+0.378991  
+0.247253  
+0.208963  
+0.099692  
+0.24882  
+0.220766  
+0.287228  
+0.237085  
+0.133464  
+0.189612  
+0.162416  
+0.243284  
+0.178201  
+0.157109  
+0.152384  
+0.172077  
+0.142778  
+0.150507  
+0.131773  
+0.100963  
+0.113386  
+0.08823  
+0.145639  
+0.161621  
+0.145486  
+0.170219  
+0.138086  
+0.135268  
+0.166706  
+0.084715  
+0.134133  
+0.210052  
+0.107159  
+0.163455  
+0.194071  
+0.133426  
+0.155395  
+0.159606  
+0.160458  
+0.133337  
+0.152935  
+0.152865  
+0.113284  
+0.160631  
+0.166256  
+0.115105  
+0.172141  
+0.15148  
+0.108226  
+0.139212  
+0.094646  
+0.114763  
+0.168407  
+0.170746  
+0.189515  
+0.163103  
+0.171339  
+0.169617  
+0.160562  
+0.195349  
+0.142793  
+0.15836  
+0.165693  
+0.185493  
+0.147239  
+0.178697  
+0.151643  
+0.248669  
+0.233236  
+0.212672  
+0.164809  
+0.153039  
+0.264836  
+0.265108  
+0.160665  
+0.177477  
+0.082011  
+0.275358  
+0.21487  
+0.14232  
+0.280762  
+0.351924  
+0.220247  
+0.003063  
+0.403094  
+0.22056  
+0.078371  
+0.307855  
+0.229446  
+1e-06  
+0.289859  
+0.044104  
+0.064959  
+0.037126  
+0.089631  
+0.120985  
+0.164839  
+0.0649  
+0.171504  
+0.05792  
+0.095638  
+0.084687  
+0.129754  
+0.195256  
+0.058857  
+0.188964  
+0.144973  
+0.116519  
+0.214536  
+0.086382  
+0.144548  
+0.140102  
+0.197903  
+0.083959  
+0.191028  
+0.141081  
+0.186404  
+0.125588  
+0.135648  
+0.130934  
+0.175505  
+0.182871  
+0.117594  
+0.120838  
+0.179327  
+0.096846  
+0.137388  
+0.080136  
+0.034281  
+0.01874  
+0.140592  
+0.070575  
+0.135792  
+0.018805  
+0.140506  
+0.085519  
+0.120052  
+0.171534  
+0.025333  
+0.061997  
+0.039179  
+0.171528  
+0.031074  
+0.111911  
+0.052735  
+0.166729  
+0.045433  
+0.141179  
+0.167615  
+0.058857  
+0.122736  
+0.097147  
+0.192688  
+0.06193  
+0.101529  
+0.112898  
+0.185199  
+0.063888  
+0.170781  
+0.215376  
+0.111033  
+0.153171  
+0.133915  
+0.209042  
+0.113995  
+0.142116  
+0.156391  
+0.186114  
+0.107066  
+0.202515  
+0.195256  
+0.058857  
+0.188964  
+0.144973  
+0.116519  
+0.214536  
+0.086382  
+0.144548  
+0.140102  
+0.197903  
+0.083959  
+0.191028  
+0.141081  
+0.186404  
+0.125588  
+0.135648  
+0.130934  
+0.175505  
+0.182871  
+0.117594  
+0.120838  
+0.179327  
+0.096846  
+0.137388  
+0.080136  
+0.034281  
+0.01874  
+0.140592  
+0.070575  
+0.135792  
+0.018805  
+0.140506  
+0.085519  
+0.120052  
+0.171534  
+0.025333  
+0.061997  
+0.039179  
+0.171528  
+0.031074  
+0.111911  
+0.052735  
+0.166729  
+0.045433  
+0.141179  
+0.167615  
+0.058857  
+0.122736  
+0.097147  
+0.192688  
+0.06193  
+0.101529  
+0.112898  
+0.185199  
+0.063888  
+0.170781  
+0.215376  
+0.111033  
+0.153171  
+0.133915  
+0.209042  
+0.113995  
+0.142116  
+0.156391  
+0.186114  
+0.107066  
+0.202515  
+0.13436  
+0.051223  
+0.236848  
+0.189133  
+0.190197  
+0.220177  
+0.264044  
+0.204041  
+0.158354  
+0.202022  
+0.219517  
+0.248839  
+0.217635  
+0.209758  
+0.290154  
+0.081029  
+0.110821  
+0.090796  
+0.110692  
+0.088115  
+0.104966  
+0.113325  
+0.155486  
+0.267409  
+0.139275  
+0.185411  
+0.174879  
+0.211412  
+0.200252  
+0.198226  
+0.202389  
+0.198754  
+0.278759  
+0.072402  
+0.096711  
+0.072881  
+0.122182  
+0.057046  
+0.055639  
+0.103755  
+0.166057  
+0.082918  
+0.110033  
+0.064928  
+0.091131  
+0.073206  
+0.077514  
+0.107796  
+0.176055  
+0.063187  
+0.116586  
+0.142971  
+0.112117  
+0.137563  
+0.08809  
+0.099875  
+0.127681  
+0.209371  
+0.199426  
+0.144743  
+0.062339  
+0.001806  
+0.062847  
+0.097591  
+0.004575  
+0.068645  
+0.090709  
+0.0256  
+0.200653  
+0.120734  
+0.14401  
+0.088474  
+0.168391  
+0.133183  
+0.148126  
+0.179924  
+0.143884  
+0.199426  
+0.193572  
+0.216843  
+0.150515  
+0.111477  
+0.167156  
+0.179053  
+0.166113  
+0.173528  
+0.190335  
+0.065616  
+0.147164  
+0.120694  
+0.153025  
+0.160454  
+0.152169  
+0.15526  
+0.203394  
+0.163169  
+0.045035  
+0.06318  
+0.111658  
+0.20226  
+0.145279  
+0.039321  
+0.17068  
+0.136443  
+0.075246  
+0.196187  
+0.197856  
+0.139278  
+0.134155  
+0.159922  
+0.154716  
+0.136833  
+0.198163  
+0.172787  
+0.094688  
+0.113883  
+0.028005  
+0.161719  
+0.140263  
+0.152268  
+0.147467  
+0.111177  
+0.075719  
+0.149196  
+0.161485  
+0.153304  
+0.190345  
+0.193572  
+0.0993  
+0.122647  
+0.11552  
+0.140519  
+0.183163  
+0.180418  
+0.207291  
+0.134039  
+0.266108  
+0.16776  
+0.22089  
+0.172188  
+0.298626  
+0.092868  
+0.275518  
+0.267092  
+0.187829  
+0.198238  
+0.10524  
+0.296047  
+0.19513  
+0.260993  
+0.192374  
+0.190808  
+0.140322  
+0.256123  
+0.058074  
+0.26427  
+0.165867  
+0.129637  
+0.169976  
+0.159008  
+0.194778  
+0.169432  
+0.156202  
+0.183894  
+0.17078  
+0.115515  
+0.248246  
+0.207251  
+0.111967  
+0.116673  
+1e-06  
+0.154319  
+0.245887  
+0.188197  
+0.182648  
+0.133007  
+0.241238  
+0.086109  
+0.149951  
+0.128935  
+0.088963  
+0.077641  
+0.099536  
+0.045525  
+0.218549  
+0.151702  
+0.177772  
+0.133781  
+0.170572  
+0.228138  
+0.00616  
+0.183131  
+0.092657  
+0.132188  
+0.110583  
+0.048419  
+0.075016  
+0.082393  
+0.07724  
+0.210064  
+0.081993  
+0.08321  
+0.012386  
+0.098082  
+0.110344  
+0.081909  
+0.162464  
+0.223906  
+0.107252  
+0.235886  
+0.138329  
+0.137268  
+0.175145  
+0.079525  
+0.126799  
+0.14813  
+0.137011  
+0.169426  
+0.06102  
+0.066406  
+0.09725  
+0.105103  
+0.081395  
+0.018304  
+0.127083  
+0.230588  
+0.112283  
+0.163231  
+0.111491  
+0.110482  
+0.145914  
+0.066282  
+0.017324  
+0.119748  
+0.091561  
+0.187044  
+0.072278  
+0.074287  
+0.074714  
+0.071901  
+0.086194  
+0.066639  
+0.113053  
+0.305905  
+0.222952  
+0.167533  
+0.135126  
+0.172666  
+0.08732  
+0.09288  
+0.175355  
+0.085398  
+0.220681  
+0.177377  
+0.12306  
+0.136871  
+0.10319  
+0.080709  
+0.085731  
+0.174351  
+0.19409  
+0.135079  
+0.144508  
+0.139971  
+0.153244  
+0.170135  
+0.243238  
+0.100525  
+0.063853  
+0.122658  
+0.092965  
+0.071735  
+0.120482  
+0.1468  
+0.208995  
+0.134622  
+0.138555  
+0.281181  
+0.184595  
+0.180937  
+0.286449  
+0.188625  
+0.106367  
+0.288307  
+0.130521  
+0.284068  
+0.173878  
+0.063021  
+0.109536  
+0.126744  
+0.171671  
+0.185623  
+0.332237  
+0.270079  
+0.439767  
+0.330174  
+0.378551  
+0.099348  
+0.185613  
+0.36394  
+0.403566  
+0.337649  
+0.140746  
+0.16991  
+0.078838 3.816e-07 ng_ml
+0.104778 7.805e-11 ng_ml_Hb_cov
+0.054793 8.049e-14 kidney_missing
+0.131989 0.04462 adjusted_average_motion
+0.127418 0.05019 adjusted_average_motion_MF_sep
+0.092824 0.09497 total_average_motion
+0.548768 4.376e-07 axis1
+0.44426 0.0002013 axis10
+0.197652 0.02823 axis11
+0.20353 0.03603 axis12
+0.222566 0.03104 axis13
+0.267428 0.02282 axis14
+0.098406 0.2171 axis15
+0.219632 0.05616 axis16
+0.367016 0.004518 axis17
+0.089281 0.2308 axis18
+0.168306 0.09666 axis19
+0.238958 0.02723 axis2
+1e-06 0.5 axis20
+0.108397 0.1701 axis21
+1e-06 0.5 axis22
+0.13015 0.1468 axis23
+0.328184 0.008915 axis24
+0.276627 0.01087 axis3
+0.536417 2.235e-05 axis4
+0.638554 2.949e-06 axis5
+0.084638 0.2593 axis6
+0.162754 0.1038 axis7
+0.085907 0.1751 axis8
+0.178778 0.1019 axis9
+0.555433 2.02e-07 surface_area
+0.491863 5.764e-06 volume
