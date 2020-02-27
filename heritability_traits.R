@@ -20,6 +20,10 @@ heritability_data <- read.delim("h_traits.txt", header = F) %>%
   mutate_at(vars(-one_of("trait")), as.numeric) %>% 
   arrange(desc(snp_heritability))
 
+rownames(heritability_data) <- NULL 
+save(heritability_data, file = "heritability_traits.RData")
+write.csv(heritability_data, file = "heritability_data.csv")
+
 raw_traits_heritability <- data.frame(trait = names(raw_traits)[-(1:5)])
 
 
