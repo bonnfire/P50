@@ -46,64 +46,150 @@ uniform.var.names.testingu01 <- function(df){
 
 
 
+uniform.date.testingu01 <- function(df){
+  lapply(seq_along(df), function(i) {
+    datecols <- c("dob", "dow", "shipmentdate")
+    datefunction <- function(x){
+      if(all(nchar(x)==5)){
+        convertToDate(x)
+      } 
+      else if(all(grepl("^\\d{4}-", x))){
+        lubridate::ymd(x)
+      }
+      else if(all(grepl("^\\d{2}-", x))){
+        lubridate::mdy(x)
+      }
+      else
+        paste0(x, "INVALID_CHECK")
+    }
+    df[[i]] <- df[[i]] %>% 
+      mutate_at(.vars = vars(datecols), .funs = datefunction)
+    return(df[[i]])
+  })
+} # function should be used for other cases (testing)
 
-################# MISC 
+
+unique.values.length.by.col <- function(df, var){
+  lapply(df, function(df){
+    uniquevarcount <- sapply(df[var], function(x){
+      unique(x) %>% length()})
+    print(paste("for", var, "the number of unique values (observed count) is", uniquevarcount, "and number of rows (expected count) is", nrow(df)))})
+} # function should be used for identification variables, and for other cases (testing)
+
+
+########################################################################################
+###
+### PAUL
+###
+########################################################################################
 setwd("~/Dropbox (Palmer Lab)/Palmer Lab/Bonnie Lin/P50")
-# 1/31 OKSANA PAUL #2 SHIPPING SHEET 
 ## NY (he's at the University at Buffalo)
+NY_excel_orig <- lapply(list.files(path = ".", pattern = "Paul"), function(x){
+  x <- u01.importxlsx(x)
+  x <- x[[1]] %>% 
+    mutate_all(as.character) %>% 
+    mutate_all(toupper)
+  return(x)
+})
 
-NY_excel_orig <- u01.importxlsx("Paul #2 shipping sheet.xlsx")
-NY_excel_orig_test <- uniform.var.names.testingu01(NY_excel_orig)[[1]]
-NY_excel_orig_test %<>% 
-  rename("dow" = "datewean",
-         "shipmentdate" = "dateshipment",
-         "dames" = "dam",
-         "sires" = "sire") %>% 
-  mutate(rfid = toupper(rfid))
+NY_excel_orig_test <- NY_excel_orig %>% 
+  uniform.var.names.testingu01() %>% 
+  lapply(., function(x){
+    x <- x %>% 
+      rename("dow" = "datewean",
+             "shipmentdate" = "dateshipment",
+             "dames" = "dam",
+             "sires" = "sire")
+    return(x)
+  })
 
-# because of inconsistent date types, remove from olivier dataframe
-# WFU_OlivierOxycodone_test[[6]] <- rbind(WFU_OlivierOxycodone_test[[6]], WFU_OlivierOxycodone_test[[7]])
-# WFU_OlivierOxycodone_test[[7]] <- NULL # turned into comment 1/31 uncertain about why this is here
+# change date type
+NY_excel_orig_test[[1]] <- NY_excel_orig_test[[1]] %>% 
+  mutate(dow = replace(dow, dow == "10/31/20169", as.numeric(as.Date('2019-10-31')-as.Date(0, origin="1899-12-30", tz='UTC'))))
+NY_excel_orig_test <- uniform.date.testingu01(NY_excel_orig_test)
 
 
-# make shipment box uniform (? needed - waiting for confirmation)
-
-# check id values 
+# check id values
 idcols <- c("labanimalid", "accessid", "rfid")
+unique.values.length.by.col(NY_excel_orig_test, idcols)
+## extract pilot 
+NY_pilot <- lapply(NY_excel_orig_test, function(x){
+  x <- x %>% 
+    subset(rfid == "PILOT")
+  return(x)
+})
+names(NY_pilot) <- paste0("C", str_pad(readr::parse_number(list.files(path = ".", pattern = "Paul")), 2, side = "left", pad = "0"))
+NY_pilot <- NY_pilot %>% rbindlist(fill = T, idcol = "cohort") # replace list object to prevent creation of another dataframe object
+## remove pilot from df
+NY_excel_orig_test <- lapply(NY_excel_orig_test, function(x){
+  x <- x %>% 
+    subset(rfid != "PILOT")
+  return(x)
+})
+unique.values.length.by.col(NY_excel_orig_test, idcols)
 
-uniquevarcount <- sapply(NY_excel_orig_test[idcols], function(x){
-  unique(x) %>% length()})
-writeLines(c(paste("for", names(uniquevarcount), "the number of unique values (observed count) is", uniquevarcount, "and number of rows (expected count) is", nrow(NY_excel_orig_test))))
-NY_excel_orig_test %>% dplyr::filter(rfid != "PILOT") %>% get_dupes(rfid)
-NY_excel_orig_test %>% dplyr::filter(rfid != "PILOT") %>% select(rfid) %>% unique %>% dim
+# %>% dplyr::filter(rfid != "PILOT") %>% get_dupes(rfid) # use to find inconsistencies
 
-# change coat colors
-NY_excel_orig_test$coatcolor <- gsub("([A-Z]+)(HOOD)", "\\1 \\2", mgsub::mgsub(NY_excel_orig_test$coatcolor, 
+# turn into df for the rest of the basic QC 
+names(NY_excel_orig_test) <- paste0("C", str_pad(readr::parse_number(list.files(path = ".", pattern = "Paul")), 2, side = "left", pad = "0"))
+
+NY_excel_orig_test_df <- NY_excel_orig_test %>% 
+  rbindlist(idcol = "cohort", fill = T) %>% 
+  as.data.frame()
+
+# make coat colors uniform
+NY_excel_orig_test_df$coatcolor <- gsub("([A-Z]+)(HOOD)", "\\1 \\2", mgsub::mgsub(NY_excel_orig_test_df$coatcolor, 
                                                                                c("BRN|[B|b]rown", "BLK|[B|b]lack", "HHOD|[H|h]ood|[H|h]hod", "[A|a]lbino"), 
                                                                                c("BROWN", "BLACK", "HOOD", "ALBINO"))) 
 
-
 # # add age of shipment and check consistency (* Note concern if animal was shipped older than 65 days)
-NY_excel_orig_test %>% mutate(dob = replace(dob, dob == lubridate::ymd("2020-12-31"), lubridate::ymd("2019-12-31"))) %>% mutate(shipmentage = as.numeric(shipmentdate - dob) %>% round) %>% select(shipmentage) %>% summary
-## waiting for confirmation: will add variable in once replacement is verified 
+NY_excel_orig_test_df <- NY_excel_orig_test_df %>% mutate(dob = replace(dob, dob == lubridate::ymd("2020-12-31"), lubridate::ymd("2019-12-31"))) %>% 
+  mutate(shipmentage = as.numeric(shipmentdate - dob) %>% round) 
+NY_excel_orig_test_df %>% group_by(cohort) %>% summarize(min_ship = min(shipmentage),
+                                                         med_ship = median(shipmentage), 
+                                                         mean_ship = mean(shipmentage), 
+                                                         max_ship = max(shipmentage),
+                                                         CONCERN_OVER65 = sum(shipmentage > 65))
 
-# # add age of wean and check consistency (* Note concern if animal was weaned older than 25 days)
-NY_excel_orig_test %>% mutate(dob = replace(dob, dob == lubridate::ymd("2020-12-31"), lubridate::ymd("2019-12-31"))) %>% mutate(weanage = as.numeric(dow - dob) %>% round) %>% select(weanage) %>% summary
-## waiting for confirmation: will add variable in once replacement is verified 
+# # add age of wean and check consistency (* Note concern if animal was weaned older than 27 days or younger than 18 days)
+NY_excel_orig_test_df <- NY_excel_orig_test_df %>% 
+  mutate(weanage = as.numeric(dow - dob) %>% round) 
+NY_excel_orig_test_df %>% group_by(cohort) %>% summarize(min_wean = min(weanage),
+                                                         med_wean = median(weanage), 
+                                                         mean_wean = mean(weanage), 
+                                                         max_wean = max(weanage),
+                                                         CONCERN_OVER27 = sum(weanage > 27),
+                                                         CONCERN_UNDER18 = sum(weanage < 18)) 
+
+
+## check ID consistency
+NY_excel_orig_test_df %>% subset(!grepl("1DCD(\\d|\\D){4}", rfid)) %>% nrow()
+
 
 ## check # of same sex siblings (diff litter)
-NY_excel_orig_test %>% janitor::get_dupes(sires, dames, sex) # if scrubs is not important, this code works, otherwise, add is.na(comment)
+NY_excel_orig_test_df %>% janitor::get_dupes(sires, dames, sex) # if scrubs is not important, this code works, otherwise, add is.na(comment)
 
 ## check # of same sex littermates (same litter)
-NY_excel_orig_test %>% janitor::get_dupes(sires, dames, litternumber, sex) #12 pairs
+NY_excel_orig_test_df %>% janitor::get_dupes(sires, dames, litternumber, sex) #12 pairs
 
 ## check number of same sex rats in each rack and get number of rat sexes in each rack
-NY_excel_orig_test %>% 
+NY_excel_orig_test_df %>% 
   group_by(rack) %>% count(sex) %>% ungroup() %>% janitor::get_dupes(rack)
-NY_excel_orig_test %>% group_by(rack) %>% count(sex) %>% ungroup() %>% select(n) %>% table
+NY_excel_orig_test_df %>% group_by(rack) %>% count(sex) %>% ungroup() %>% select(n) %>% table
 
 
 
+
+
+
+
+
+
+########################################################################################
+###
+### JERRY
+###
+########################################################################################
 setwd("~/Dropbox (Palmer Lab)/Palmer Lab/Bonnie Lin/P50")
 # 11/18 OKSANA JERRY #1 SHIPPING SHEET 
 Jerry_excel_orig_1 <- u01.importxlsx("Jerry #1 Shipping sheet.xlsx")
@@ -164,3 +250,12 @@ Jerry_excel_orig_test %>%
   group_by(rack) %>% count(sex) %>% ungroup() %>% janitor::get_dupes(rack)
 Jerry_excel_orig_test %>% group_by(rack) %>% count(sex) %>% ungroup() %>% select(n) %>% table
 
+
+
+
+
+########################################################################################
+###
+### CHEN
+###
+########################################################################################
