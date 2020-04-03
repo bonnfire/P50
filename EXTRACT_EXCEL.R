@@ -295,3 +295,100 @@ Jerry_excel_orig_test_df %>% group_by(rack) %>% count(sex) %>% ungroup() %>% sel
 ### CHEN
 ###
 ########################################################################################
+setwd("~/Dropbox (Palmer Lab)/Palmer Lab/Bonnie Lin/P50")
+## U of Memphis (TN)
+Chen_excel_orig <- lapply(list.files(path = ".", pattern = "Chen", ignore.case = T), function(x){
+  x <- u01.importxlsx(x)
+  x <- x[[2]] %>% 
+    mutate_all(as.character) %>% 
+    mutate_all(toupper)
+  return(x)
+})
+
+Chen_excel_orig_test <- Chen_excel_orig %>% 
+  uniform.var.names.testingu01() %>% 
+  lapply(., function(x){
+    x <- x %>% 
+      rename("dow" = "datewean",
+             "shipmentdate" = "dateshipment",
+             "dames" = "dam",
+             "sires" = "sire")
+    x <- x[!duplicated(as.list(x))]
+    return(x)
+  })
+
+
+## COHORT 1 -- 30 RATS USED AS PILOTS, REMOVE AND REPLACE ID'S 
+## extract pilot (none as of cohort 2)
+C01_pilot_rfid <- read.csv("RFID_Oxycodone_HS_pilot.csv", header = F) %>% unlist() %>% as.character() %>% toupper()
+Chen_pilot <- lapply(Chen_excel_orig_test, function(x){
+  x <- x %>% 
+    subset(rfid == "PILOT"|rfid%in%C01_pilot_rfid)
+  return(x)
+})
+names(Chen_pilot) <- paste0("C", str_pad(readr::parse_number(list.files(path = ".", pattern = "Chen")), 2, side = "left", pad = "0"))
+Chen_pilot <- Chen_pilot %>% rbindlist(fill = T, idcol = "cohort") %>% mutate(pilot = "PILOT") # replace list object to prevent creation of another dataframe object
+## remove pilot from df
+Chen_excel_orig_test <- lapply(Chen_excel_orig_test, function(x){
+  x <- x %>% 
+    subset(!rfid %in% Chen_pilot$rfid)
+  return(x)
+})
+ 
+# quick scan
+Chen_excel_orig_test %>% lapply(., sapply, unique)
+
+# change date type
+Chen_excel_orig_test <- uniform.date.testingu01(Chen_excel_orig_test)
+
+
+# check id values
+idcols <- c("labanimalid", "accessid", "rfid")
+unique.values.length.by.col(Chen_excel_orig_test, idcols)
+
+# turn into df for the rest of the basic QC 
+names(Chen_excel_orig_test) <- paste0("C", str_pad(readr::parse_number(list.files(path = ".", pattern = "Chen")), 2, side = "left", pad = "0"))
+
+Chen_excel_orig_test_df <- Chen_excel_orig_test %>% 
+  rbindlist(idcol = "cohort", fill = T) %>% 
+  as.data.frame()
+
+# make coat colors uniform
+Chen_excel_orig_test_df$coatcolor <- gsub("([A-Z]+)(HOOD)", "\\1 \\2", mgsub::mgsub(Chen_excel_orig_test_df$coatcolor, 
+                                                                                     c("BRN|[B|b]rown", "BLK|[B|b]lack", "HHOD|[H|h]ood|[H|h]hod", "[A|a]lbino"), 
+                                                                                     c("BROWN", "BLACK", "HOOD", "ALBINO"))) 
+
+# # add age of shipment and check consistency (* Note concern if animal was shipped older than 65 days)
+Chen_excel_orig_test_df <- Chen_excel_orig_test_df %>% 
+  mutate(shipmentage = as.numeric(shipmentdate - dob) %>% round) 
+Chen_excel_orig_test_df %>% group_by(cohort) %>% summarize(min_ship = min(shipmentage),
+                                                            med_ship = median(shipmentage), 
+                                                            mean_ship = mean(shipmentage), 
+                                                            max_ship = max(shipmentage),
+                                                            CONCERN_OVER65 = sum(shipmentage > 65))
+
+# # add age of wean and check consistency (* Note concern if animal was weaned older than 27 days or younger than 18 days)
+Chen_excel_orig_test_df <- Chen_excel_orig_test_df %>% 
+  mutate(weanage = as.numeric(dow - dob) %>% round) 
+Chen_excel_orig_test_df %>% group_by(cohort) %>% summarize(min_wean = min(weanage),
+                                                            med_wean = median(weanage), 
+                                                            mean_wean = mean(weanage), 
+                                                            max_wean = max(weanage),
+                                                            CONCERN_OVER27 = sum(weanage > 27),
+                                                            CONCERN_UNDER18 = sum(weanage < 18)) 
+
+
+## check ID consistency
+Chen_excel_orig_test_df %>% subset(nchar(rfid) != 8|grepl("[[:punct:]]", rfid)) %>% nrow()
+
+
+## check # of same sex siblings (diff litter)
+Chen_excel_orig_test_df %>% janitor::get_dupes(sires, dames, sex) 
+
+## check # of same sex littermates (same litter)
+Chen_excel_orig_test_df %>% janitor::get_dupes(sires, dames, litternumber, sex) #12 pairs
+
+## check number of same sex rats in each rack and get number of rat sexes in each rack
+Chen_excel_orig_test_df %>% 
+  group_by(rack) %>% count(sex) %>% ungroup() %>% janitor::get_dupes(rack)
+Chen_excel_orig_test_df %>% group_by(rack) %>% count(sex) %>% ungroup() %>% select(n) %>% table
