@@ -9,17 +9,32 @@
 
 ## Use API to extract variant information
 # Submit requests
-library(tidyverse) ; library(httr) ; library(jsonlite)
+library(tidyverse) ; library(httr) ; library(jsonlite); library(data.table)
 # taxonomyCode = rnorvegicus
 # assemblyCode = 60
-paths <- paste0("http://www.ebi.ac.uk/eva/webservices/rest/v1/segments/1:3000000-3100000/variants?species=rnorvegicus_60&limit=10")
+paths <- paste0("http://www.ebi.ac.uk/eva/webservices/rest/v1/segments/", 1:20, ":3000000-3100000/variants?species=rnorvegicus_60") # rat has 42 chromosomes
+## change to 20 bc there are actually 20 chromosomes in rat
+## limitation on the website only allows chromosome location be million base pairs wide
+## should be 1 through XX 
 
-# If the request fails the API will return a non-200 status code
-request <- GET(url = paths)
+## function to reiterate api call
+extract_eva_as_df <- function(path){
+  request <- GET(url = path)
+  response <- content(request, as = "text", encoding = "UTF-8")
+  df <- fromJSON(response, flatten = TRUE)$response$result[[1]] 
+  return(df)
+}
 
-# Parse response
-response <- content(request, as = "text", encoding = "UTF-8")
 
-# Convert to df 
-df <- fromJSON(response, flatten = TRUE)$response$result[[1]] 
+# eva_as_df <- lapply(paths[1], extract_eva_as_df) %>% rbindlist()
+eva_as_df <- lapply(paths[1], extract_eva_as_df) %>% rbindlist()
+
+# ## troubleshoot # one api call at a time
+# # If the request fails the API will return a non-200 status code
+# request <- GET(url = paths)
+# request$status_code
+# # Parse response
+# response <- content(request, as = "text", encoding = "UTF-8")
+# # Convert to df 
+# df <- fromJSON(response, flatten = TRUE)$response$result[[1]] 
 
