@@ -21,5 +21,5 @@ request <- GET(url = paths)
 response <- content(request, as = "text", encoding = "UTF-8")
 
 # Convert to df 
-df <- fromJSON(response, flatten = TRUE) %>% 
-  data.frame()
+df <- fromJSON(response, flatten = TRUE)$response$result[[1]] 
+
