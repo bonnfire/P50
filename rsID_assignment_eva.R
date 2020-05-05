@@ -10,6 +10,7 @@
 ## Use API to extract variant information
 # Submit requests
 library(tidyverse) ; library(httr) ; library(jsonlite); library(data.table)
+library(tidyr) ; library(janitor) ; library(ggplot2)
 # taxonomyCode = rnorvegicus
 # assemblyCode = 60
 paths <- paste0("http://www.ebi.ac.uk/eva/webservices/rest/v1/segments/", 1:20, ":3000000-3100000/variants?species=rnorvegicus_60") # rat has 42 chromosomes
@@ -37,4 +38,37 @@ eva_as_df <- lapply(paths[1], extract_eva_as_df) %>% rbindlist()
 # response <- content(request, as = "text", encoding = "UTF-8")
 # # Convert to df 
 # df <- fromJSON(response, flatten = TRUE)$response$result[[1]] 
+
+
+
+### XXX ### XXX ### XXX ### 
+install.packages("vcfR")
+setwd("~/Dropbox (Palmer Lab)/Palmer Lab/Bonnie Lin/P50/EVA_Rat/ftp.ebi.ac.uk/pub/databases/eva/rs_releases/release_1/by_assembly/GCA_000001895.4")
+
+ratrsid_basic <- vcfR::read.vcfR("GCA_000001895.4_current_ids.vcf") # The vcfR object is an S4 class object with three slots containing the metadata, the fixed data and the genotype dat
+ratrsid_basic_df <- vcfR::vcfR2tidy(ratrsid_basic)
+ratrsid_basic %>% class
+
+chrom_pos_rsid <- data.frame(chromosome = system("sed -n '/#/!p' GCA_000001895.4_current_ids.vcf | cut -f 1,2,3", intern = T)) %>% 
+  separate(chromosome, c("chromosome", "position", "id"))
+chrom_pos_rsid_dupes <- chrom_pos_rsid %>% 
+  get_dupes(id) %>%
+  rename("dupe_id" = "dupe_count") %>%
+  group_by(id) %>% 
+  mutate(unique_ch = n_distinct(chromosome),
+         unique_po = n_distinct(position)) %>% 
+  ungroup()
+  # get_dupes(id, chromosome) %>% 
+  # rename("dupe_id_diffchr" = "dupe_count")
+
+chrom_pos_rsid_dupes %>% subset(unique_ch > 1) %>% dim
+chrom_pos_rsid_dupes %>% subset(unique_po > 1) %>% dim
+
+chrom_pos_rsid_dupes %>% 
+  mutate(chromosome = gsub("chr", "", chromosome) %>% 
+           factor(levels = c(1:20, "X"))) %>% 
+  ggplot(aes(x = chromosome, y = dupe_count)) +
+  geom_boxplot()
+
+chrom_pos_rsid_dt <- as.data.table(chrom_pos_rsid)
 
