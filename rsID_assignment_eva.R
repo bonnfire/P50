@@ -62,7 +62,9 @@ chrom_pos_rsid_dupes <- chrom_pos_rsid %>%
   # rename("dupe_id_diffchr" = "dupe_count")
 
 chrom_pos_rsid_dupes %>% subset(unique_ch > 1) %>% dim
+chrom_pos_rsid_dupes %>% distinct(id) %>% dim
 chrom_pos_rsid_dupes %>% subset(unique_po > 1) %>% dim
+
 
 chrom_pos_rsid_dupes %>% 
   mutate(chromosome = gsub("chr", "", chromosome) %>% 
@@ -71,4 +73,18 @@ chrom_pos_rsid_dupes %>%
   geom_boxplot()
 
 chrom_pos_rsid_dt <- as.data.table(chrom_pos_rsid)
+
+
+### get the p50 data / current snps
+setwd("~/Dropbox (Palmer Lab)/Palmer Lab/Bonnie Lin/P50/SNPs")
+snps_positions_txt <- read.delim("positions.snplist", header = FALSE) 
+snps_positions_txt <- snps_positions_txt %>% 
+  rename("chromosome" = "V1") %>% 
+  separate(chromosome, c("chromosome", "position"))
+
+# what we have compared to what eba has
+snps_positions_txt_jn <- snps_positions_txt %>%
+  left_join(., chrom_pos_rsid, by = c("chromosome", "position"))
+snps_positions_txt_jn %<>% 
+  mutate(in_eba = ifelse(is.na(id) == T, 0, 1) %>% as.factor) # 0 is not in eba
 
