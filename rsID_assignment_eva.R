@@ -84,7 +84,28 @@ snps_positions_txt <- snps_positions_txt %>%
 
 # what we have compared to what eba has
 snps_positions_txt_jn <- snps_positions_txt %>%
-  left_join(., chrom_pos_rsid, by = c("chromosome", "position"))
+  left_join(., chrom_pos_rsid, by = c("chromosome", "position")) # jn = join
 snps_positions_txt_jn %<>% 
   mutate(in_eba = ifelse(is.na(id) == T, 0, 1) %>% as.factor) # 0 is not in eba
 
+## prepare vcf file for eba with the 1.6m that we don't have 
+snps_freq <- read.delim("freq.vcf", header = TRUE) 
+snps_freq_df <- snps_freq %>% 
+  mutate(`CHR.............SNP...A1...A2..........MAF..NCHROBS` = gsub("^[[:space:]]+", "", `CHR.............SNP...A1...A2..........MAF..NCHROBS`)) %>% 
+  separate(`CHR.............SNP...A1...A2..........MAF..NCHROBS`, str_split(names(.), "[.]+")[[1]], "[[:space:]]+") %>% 
+  clean_names() %>% 
+  separate(snp, c("snp_chr", "snp_pos"), "[:]") %>% 
+  mutate(snp_chr = gsub("chr", "", snp_chr)) %>%
+  left_join(., snps_positions_txt_jn %>% 
+              mutate(chromosome = gsub("chr", "", chromosome)), 
+                     by = c("snp_chr" = "chromosome", "snp_pos" = "position")) %>% 
+  dplyr::filter(is.na(in_eba)|in_eba==0)
+
+snps_freq_df %>% dim
+
+if(snps_freq_df %>% subset(chr != snp_chr) %>% nrow() == 0){
+  snps_freq_df <- snps_freq_df %>% 
+    select(-chr)
+} else{
+  print("Chr and snp_chr NOT THE SAME")
+}
