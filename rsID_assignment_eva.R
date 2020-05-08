@@ -10,7 +10,7 @@
 ## Use API to extract variant information
 # Submit requests
 library(tidyverse) ; library(httr) ; library(jsonlite); library(data.table)
-library(tidyr) ; library(janitor) ; library(ggplot2)
+library(tidyr) ; library(janitor) ; library(ggplot2) ; library(magrittr)
 # taxonomyCode = rnorvegicus
 # assemblyCode = 60
 paths <- paste0("http://www.ebi.ac.uk/eva/webservices/rest/v1/segments/", 1:20, ":3000000-3100000/variants?species=rnorvegicus_60") # rat has 42 chromosomes
@@ -42,28 +42,30 @@ eva_as_df <- lapply(paths[1], extract_eva_as_df) %>% rbindlist()
 
 
 ### XXX ### XXX ### XXX ### 
-install.packages("vcfR")
+# install.packages("vcfR")
+library(vcfR)
 setwd("~/Dropbox (Palmer Lab)/Palmer Lab/Bonnie Lin/P50/EVA_Rat/ftp.ebi.ac.uk/pub/databases/eva/rs_releases/release_1/by_assembly/GCA_000001895.4")
 
-ratrsid_basic <- vcfR::read.vcfR("GCA_000001895.4_current_ids.vcf") # The vcfR object is an S4 class object with three slots containing the metadata, the fixed data and the genotype dat
-ratrsid_basic_df <- vcfR::vcfR2tidy(ratrsid_basic)
-ratrsid_basic %>% class
+# ratrsid_basic <- vcfR::read.vcfR("GCA_000001895.4_current_ids.vcf") # The vcfR object is an S4 class object with three slots containing the metadata, the fixed data and the genotype dat
+# ratrsid_basic_df <- vcfR::vcfR2tidy(ratrsid_basic)
+# ratrsid_basic %>% class
 
+# identify dupes -- resolved bc these are snv's and can have dupes
 chrom_pos_rsid <- data.frame(chromosome = system("sed -n '/#/!p' GCA_000001895.4_current_ids.vcf | cut -f 1,2,3", intern = T)) %>% 
   separate(chromosome, c("chromosome", "position", "id"))
-chrom_pos_rsid_dupes <- chrom_pos_rsid %>% 
-  get_dupes(id) %>%
-  rename("dupe_id" = "dupe_count") %>%
-  group_by(id) %>% 
-  mutate(unique_ch = n_distinct(chromosome),
-         unique_po = n_distinct(position)) %>% 
-  ungroup()
-  # get_dupes(id, chromosome) %>% 
-  # rename("dupe_id_diffchr" = "dupe_count")
-
-chrom_pos_rsid_dupes %>% subset(unique_ch > 1) %>% dim
-chrom_pos_rsid_dupes %>% distinct(id) %>% dim
-chrom_pos_rsid_dupes %>% subset(unique_po > 1) %>% dim
+# chrom_pos_rsid_dupes <- chrom_pos_rsid %>% 
+#   get_dupes(id) %>%
+#   rename("dupe_id" = "dupe_count") %>%
+#   group_by(id) %>% 
+#   mutate(unique_ch = n_distinct(chromosome),
+#          unique_po = n_distinct(position)) %>% 
+#   ungroup()
+#   # get_dupes(id, chromosome) %>% 
+#   # rename("dupe_id_diffchr" = "dupe_count")
+# 
+# chrom_pos_rsid_dupes %>% subset(unique_ch > 1) %>% dim
+# chrom_pos_rsid_dupes %>% distinct(id) %>% dim
+# chrom_pos_rsid_dupes %>% subset(unique_po > 1) %>% dim
 
 
 chrom_pos_rsid_dupes %>% 
@@ -109,3 +111,5 @@ if(snps_freq_df %>% subset(chr != snp_chr) %>% nrow() == 0){
 } else{
   print("Chr and snp_chr NOT THE SAME")
 }
+
+save(snps_freq_df, file = "GBSRat_SNPs.vcf.gz")
