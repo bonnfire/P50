@@ -1,0 +1,25 @@
+## log of workflow for positions
+
+# create the metadata 
+head -n 23 positions_order_freq.vcf > metadata_order_freq.txt
+echo "##INFO=<ID=AF,Number=A,Type=Float,Description=\"Allele Frequency\">" >>metadata_order_freq.txt
+awk '/##source=PLINKv2.00/ { print; print "##reference=ftp://ftp.ensembl.org/pub/release-100/fasta/rattus_norvegicus/dna/"; next }1' metadata_order_freq.txt >>metadata_order_freq.txt
+
+tail -n 4 positions
+head -n 500000 positions_merge_meta
+## get all rows of the columns of interest without the metadata 
+cat positions_order_freq.vcf | cut -f -8 | grep -v "##" > positions_order_columns.txt  
+
+## get the frequencies from the vcf file 
+cut -f 5 positions_order_freq.afreq  > positions_freq_columns.txt
+
+## join the two txt files
+paste positions_order_columns.txt positions_freq_columns.txt | awk '{print $1, $2, $3, $4, $5, $6, $7, $9}' | awk '{$8="AF="$8; print}' | sed -e '1s/AF=ALT_FREQS/INFO/' > positions_freq_merge.txt
+
+# add the metadata to the txt files 
+# XX look at this more tomorrow... weird ending of file 
+cat metadata_order_freq.txt positions_freq_merge.txt > positions_merge_metadata.vcf
+
+## download and use executable
+wget https://github.com/EBIvariation/vcf-validator/releases/download/v0.9.4/vcf_validator_linux
+chmod u+x vcf_validator_linux.1

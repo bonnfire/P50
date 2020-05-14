@@ -105,11 +105,24 @@ snps_freq_df <- snps_freq %>%
 
 snps_freq_df %>% dim
 
+# remove redundant columns
 if(snps_freq_df %>% subset(chr != snp_chr) %>% nrow() == 0){
   snps_freq_df <- snps_freq_df %>% 
     select(-chr)
 } else{
   print("Chr and snp_chr NOT THE SAME")
 }
-
+  
+snps_freq_df <- snps_freq_df %>% 
+  # mutate(INFO = paste0("AC=", nchrobs, ";", "AF=", maf)) %>% 
+  mutate(INFO = paste0("AF=", maf)) %>%
+  rename("CHROM" = "snp_chr",
+         "POS" = "snp_pos",
+         "REF" = "a1", 
+         "ALT" = "a2",
+         "ID" = "id") %>% 
+  mutate(ID = replace(ID, in_eba == 0, ".")) %>% 
+  select(CHROM, POS, ID, REF, ALT, INFO) # remove the nonmissing allele count for the vcf submission, they only need one
+  
 save(snps_freq_df, file = "GBSRat_SNPs.vcf.gz")
+  
