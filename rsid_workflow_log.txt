@@ -27,12 +27,9 @@ cat positions_order_metadata.txt positions_order_freqs_merge.txt > positions_ord
 
 
 
-
-
+## sandbox #############################################################3
 sed -e '/tc_/s/^/AF=/8'
 awk '{$8="AF="$8; print}'
-
-
 ##INFO=<ID=PR,Number=0,Type=Flag,Description="Provisional reference allele, may not be based on real reference genome">
 ## remove current info column
 cut -f8 --complement 
@@ -56,8 +53,23 @@ rm test2.vcf.errors_summary.1589568882129.txt (the reference genome error is rem
 
 > positions_order_nogenomsamp.vcf
 cat positions_order_nogenomsamp.vcf | grep -v "##" > positions_obs.txt
+########################################################################
 
+## exclude the positions that already have id's
+# create the txt file with all id's
+cat /oasis/tscc/scratch/b2lin/GCA_000001895.4_current_ids.vcf | grep -v "##" | cut -f -3 | sed 1d | awk '{OFS = "\t"} {gsub(/[^[:digit:]]/, "",   $1)}1'> ebi_allids.txt
+# maybe vcftools doesn't like the addl column 
+cat /oasis/tscc/scratch/b2lin/GCA_000001895.4_current_ids.vcf | grep -v "##" | cut -f -2 | sed 1d | awk '{OFS = "\t"} {gsub(/[^[:digit:]]/, "", $1)}1'> ebi_allids.txt
+# downgrade to version 4.2
+sed -e '1s/4.3/4.2/' positions_order_merge_metadata.vcf > positions_order_merge_metadata_v4.2.vcf
 
+# exclude the positions
+(DID NOT USE BUT KEEP FOR FUTURE REFERENCE bcftools view -T ^ebi_allids.txt positions_order_merge_metadata.vcf) 
+vcftools --vcf positions_order_merge_metadata_v4.2.vcf --exclude-positions ebi_allids.txt --recode --recode-INFO-all  (vcftools automatically outputs a vcf)
+## rename the default file 
+mv out.recode.vcf rsid_unassigned_snps.vcf
+## check vcf validity 
+/oasis/tscc/scratch/b2lin/software/vcf_validator_linux.1 -i rsid_unassigned_snps.vcf
 
 ### VERSION 1 WORKFLOW BELOW
 
@@ -83,7 +95,7 @@ cut -f 5 positions_order_freq.afreq  > positions_freq_columns.txt
 paste positions_order_columns.txt positions_freq_columns.txt | awk '{print $1, $2, $3, $4, $5, $6, $7, $9}' | awk '{$8="AF="$8; print}' | sed -e '1s/AF=ALT_FREQS/INFO/' > positions_freq_merge.txt
 
 # add the metadata to the txt files 
-# XX look at this more tomorrow... weird ending of file 
+# XX look at this more t  omorrow... weird ending of file 
 cat metadata_order_freq.txt positions_freq_merge.txt > positions_merge_metadata.vcf
 
 ## download and use executable
