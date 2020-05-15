@@ -5,6 +5,11 @@ head -n 23 positions_order_freq.vcf > metadata_order_freq.txt
 echo "##INFO=<ID=AF,Number=A,Type=Float,Description=\"Allele Frequency\">" >>metadata_order_freq.txt
 awk '/##source=PLINKv2.00/ { print; print "##reference=ftp://ftp.ensembl.org/pub/release-100/fasta/rattus_norvegicus/dna/"; next }1' metadata_order_freq.txt >>metadata_order_freq.txt
 
+awk '/##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency">/ { print; print header.txt ; next }1' metadata_order_freq.txt >>metadata_order_freq.txt
+
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
+
+
 tail -n 4 positions
 head -n 500000 positions_merge_meta
 ## get all rows of the columns of interest without the metadata 
