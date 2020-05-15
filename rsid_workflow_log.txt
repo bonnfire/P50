@@ -70,6 +70,22 @@ vcftools --vcf positions_order_merge_metadata_v4.2.vcf --exclude-positions ebi_a
 mv out.recode.vcf rsid_unassigned_snps.vcf
 ## check vcf validity 
 /oasis/tscc/scratch/b2lin/software/vcf_validator_linux.1 -i rsid_unassigned_snps.vcf
+## copy onto permanent place
+cp rsid_unassigned_snps.vcf /projects/ps-palmer/b2lin
+## created md5sum line for excel
+echo -n "rsid_unassigned_snps.vcf" | md5sum
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### VERSION 1 WORKFLOW BELOW
 
