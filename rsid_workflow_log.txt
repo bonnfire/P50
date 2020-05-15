@@ -1,5 +1,66 @@
 ## log of workflow for positions
 
+### VERSION 2 WORKFLOW  
+
+
+## extract the metadata
+head -n 30 positions_order_freq.vcf | grep "##" | grep -vE "##(INFO|FORMAT)" > positions_order_metadata.txt
+## change the metadata 
+# add reference genome
+echo "$(awk '/##source=PLINKv2.00/ { print; print "##reference=ftp://ftp.ensembl.org/pub/release-100/fasta/rattus_norvegicus/dna/"; next }1' positions_order_metadata.txt)" > positions_order_metadata.txt
+## add line 
+echo "##INFO=<ID=AF,Number=A,Type=Float,Description=\"Allele Frequency\">" >>positions_order_metadata.txt
+
+
+## extract the observations without metadata
+cut -f -7 positions_order_freq.vcf | grep -v "##" > positions_order_obs.txt
+## extract freq column and combine positions_order_obs.txt with freq column 
+cut -f5 positions_order_freq.afreq | awk '{$1="AF="$1; print}' | sed 's/AF=ALT_FREQS/INFO/' > info_freqs.txt   (NOT YET TESTED or awk -F'\t' '{ print $7 }')
+## merge the info column and freqs contents
+paste positions_order_obs.txt info_freqs.txt > positions_order_freqs_merge.txt
+
+
+## final product 
+cat positions_order_metadata.txt positions_order_freqs_merge.txt > positions_order_merge_metadata.vcf
+/oasis/tscc/scratch/b2lin/software/vcf_validator_linux.1 -i positions_order_merge_metadata.vcf
+## CREATED VALID VCF FILE 
+
+
+
+
+
+sed -e '/tc_/s/^/AF=/8'
+awk '{$8="AF="$8; print}'
+
+
+##INFO=<ID=PR,Number=0,Type=Flag,Description="Provisional reference allele, may not be based on real reference genome">
+## remove current info column
+cut -f8 --complement 
+
+sed -e '1s/AF=ALT_FREQS/INFO/' positions_order_metadata.txt
+sed -e '1s/AF=ALT_FREQS/INFO/' positions_order_metadata.txt
+
+
+## work directly with positions_order_freq.vcf
+cut -f -5 positions_order_freq.afreq > freq.vcf ## i think awk messes the spaces in the columns 
+bcftools concat positions_order_nogenomsamp.vcf freq.vcf > concattest.vcf
+
+cut -f -8 positions_order_freq.vcf > test.vcf 
+/oasis/tscc/scratch/b2lin/software/vcf_validator_linux.1 -i test.vcf
+
+# does adding the reference line mess up the file -- no
+awk '/##source=PLINKv2.00/ { print; print "##reference=ftp://ftp.ensembl.org/pub/release-100/fasta/rattus_norvegicus/dna/"; next }1' test.vcf > test2.vcf 
+/oasis/tscc/scratch/b2lin/software/vcf_validator_linux.1 -i test2.vcf (removed object test2.vcf bc passed test)
+rm test2.vcf
+rm test2.vcf.errors_summary.1589568882129.txt (the reference genome error is removed too)
+
+> positions_order_nogenomsamp.vcf
+cat positions_order_nogenomsamp.vcf | grep -v "##" > positions_obs.txt
+
+
+
+### VERSION 1 WORKFLOW BELOW
+
 # create the metadata 
 head -n 23 positions_order_freq.vcf > metadata_order_freq.txt
 echo "##INFO=<ID=AF,Number=A,Type=Float,Description=\"Allele Frequency\">" >>metadata_order_freq.txt
