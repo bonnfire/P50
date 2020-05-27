@@ -2,6 +2,8 @@
 
 ### VERSION 2 WORKFLOW  
 
+## create a round8_unpruned like file called positions_order_freq.vcf (5/26 add, troubleshooting first email from ebi) 
+/oasis/tscc/scratch/aschitre/software/plink2 --bfile round8_unpruned --keep-allele-order --recode vcf --out round8_unpruned 
 
 ## extract the metadata
 head -n 30 positions_order_freq.vcf | grep "##" | grep -vE "##(INFO|FORMAT)" > positions_order_metadata.txt
@@ -78,6 +80,28 @@ echo -n "rsid_unassigned_snps.vcf" | md5sum
 
 
 
+# 5/26 additions 
+module load R
+R
+library("BSgenome.Rnorvegicus.UCSC.rn6",lib.loc="/home/aschitre/R_libs/")
+library(vcfR)
+library(tidyverse)
+unassigned_rsid <- read.vcfR("rsid_unassigned_snps.vcf", verbose=F)
+unassigned_rsid_data <- as.data.frame((getFIX(unassigned_rsid)))
+# unassigned_rsid_data <- unassigned_rsid_data %>% mutate_all(as.character)
+# since above code doe not work because of rlang (maybe dplyr) not updated, using this instead:
+unassigned_rsid_data$FILTER <- as.character(unassigned_rsid_data$FILTER) # insert all column names
+# add column of information from function call 
+unassigned_rsid_data$ref_allele <- as.character(getSeq(BSgenome.Rnorvegicus.UCSC.rn6, strsplit(unassigned_rsid_data$ID,split=":")[[1]][1], start=as.numeric(strsplit(unassigned_rsid_data$ID,split=":")[[1]][2]), end=as.numeric(strsplit(unassigned_rsid_data$ID,split=":")[[1]][2]))
+
+
+for(i in 1:nrow(data)){
+for(j in 1:nrow(data)){
+chr_ref<-strsplit(data$snp[j],split=":")[[1]][1]
+pos_ref<-as.numeric(strsplit(data$snp[j],split=":")[[1]][2])
+data$reference_allele[j]<-as.character(getSeq(BSgenome.Rnorvegicus.UCSC.rn6, chr_ref, start=pos_ref, end=pos_ref) )
+}
+}
 
 
 
