@@ -94,18 +94,11 @@ unassigned_rsid_data <- as.data.frame((getFIX(unassigned_rsid)))
 unassigned_rsid_data$CHROM <- as.character(unassigned_rsid_data$CHROM) # for every column in names()
 
 # add column of information from function call 
-unassigned_rsid_data$ref_allele <- as.character(getSeq(BSgenome.Rnorvegicus.UCSC.rn6, strsplit(unassigned_rsid_data$ID,split=":")[[1]][1], start=as.numeric(strsplit(unassigned_rsid_data$ID,split=":")[[1]][2]), end=as.numeric(strsplit(unassigned_rsid_data$ID,split=":")[[1]][2])))
-
-strsplit(unassigned_rsid_data$ID[1:3],split=":")[[1]][1]
-
-for(i in 1:nrow(data)){
-for(j in 1:nrow(data)){
-chr_ref<-strsplit(data$snp[j],split=":")[[1]][1]
-pos_ref<-as.numeric(strsplit(data$snp[j],split=":")[[1]][2])
-data$reference_allele[j]<-as.character(getSeq(BSgenome.Rnorvegicus.UCSC.rn6, chr_ref, start=pos_ref, end=pos_ref) )
-}
-}
-
+unassigned_rsid_data$ref_allele <- as.character(getSeq(BSgenome.Rnorvegicus.UCSC.rn6, sub(":.*", "", unassigned_rsid_data$ID), start=as.numeric(sub(".*:", "", unassigned_rsid_data$ID)), end=as.numeric(sub(".*:", "", unassigned_rsid_data$ID))))
+#save df
+save(unassigned_rsid_data, file = "unassigned_rsid_withRN6ref.RData")
+# move RData to more permanent location
+cp unassigned_rsid_withRN6ref.RData /projects/ps-palmer/b2lin/eva_ebi
 
 
 
