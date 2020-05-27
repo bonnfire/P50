@@ -89,11 +89,14 @@ library(tidyverse)
 unassigned_rsid <- read.vcfR("rsid_unassigned_snps.vcf", verbose=F)
 unassigned_rsid_data <- as.data.frame((getFIX(unassigned_rsid)))
 # unassigned_rsid_data <- unassigned_rsid_data %>% mutate_all(as.character)
-# since above code doe not work because of rlang (maybe dplyr) not updated, using this instead:
-unassigned_rsid_data$FILTER <- as.character(unassigned_rsid_data$FILTER) # insert all column names
-# add column of information from function call 
-unassigned_rsid_data$ref_allele <- as.character(getSeq(BSgenome.Rnorvegicus.UCSC.rn6, strsplit(unassigned_rsid_data$ID,split=":")[[1]][1], start=as.numeric(strsplit(unassigned_rsid_data$ID,split=":")[[1]][2]), end=as.numeric(strsplit(unassigned_rsid_data$ID,split=":")[[1]][2]))
+#lapply(unassigned_rsid_data[,], as.character)
+# since above code does not work because of rlang (maybe dplyr) not updated, using this instead:
+unassigned_rsid_data$CHROM <- as.character(unassigned_rsid_data$CHROM) # for every column in names()
 
+# add column of information from function call 
+unassigned_rsid_data$ref_allele <- as.character(getSeq(BSgenome.Rnorvegicus.UCSC.rn6, strsplit(unassigned_rsid_data$ID,split=":")[[1]][1], start=as.numeric(strsplit(unassigned_rsid_data$ID,split=":")[[1]][2]), end=as.numeric(strsplit(unassigned_rsid_data$ID,split=":")[[1]][2])))
+
+strsplit(unassigned_rsid_data$ID[1:3],split=":")[[1]][1]
 
 for(i in 1:nrow(data)){
 for(j in 1:nrow(data)){
