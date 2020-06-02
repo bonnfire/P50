@@ -20,16 +20,36 @@ unassigned_rsid_err_vars_freq <-  unassigned_rsid_err_vars %>% left_join(., freq
 unassigned_rsid_err_vars_freq %>% 
   ggplot(aes(x = INFO)) + 
   geom_histogram(bins = 20) + 
-  labs(title = "Frequency distribution of Subset of Unassigned SNPs (Neither REF nor ALT match reference)",
-       x = "Allele Frequency")
+  # labs(title = "Frequency distribution of Subset of Unassigned SNPs (Neither REF nor ALT match reference)",
+  #      x = "Allele Frequency") + 
+  labs(title = "Histogram of Allele Frequency in Subset",
+       x = "Allele Frequency") +
+  theme(text = element_text(size=20),
+       panel.grid.major = element_blank(), 
+       panel.grid.minor = element_blank())
 # if we only have minor alleles, than we will only have frequency from 0 to 0.5, so don't be alarmed if this is the case
 
 #(2) map their positions 
 # (are they concentrated in some places or uniformly distributed over the genome?). 
 # One way to do this is to calculate distance between neigbouring alleles and plot distribution of these distances. 
 unassigned_rsid_err_vars_freq %>% 
-  select()
-  group
+  # select()
+  mutate_at(vars("POS"), as.numeric) %>% 
+  mutate(CHROM = factor(CHROM, levels = 1:20)) %>% 
+  group_by(CHROM) %>% 
+  mutate(dist = POS - lag(POS)) %>% 
+  ungroup() %>% 
+  subset(dist < 5000) %>%
+  ggplot(aes(x = CHROM, y = dist)) + 
+  geom_boxplot() +
+  scale_y_continuous(labels = scales::comma,
+                     breaks = scales::pretty_breaks(n = 10)) +
+  labs(title = "Distance to Neighboring Alleles on Chromosomes of Subset (Dist < 5,000)") +
+  theme(text = element_text(size=20),
+        plot.title = element_text(size=18),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())
+  # facet_grid(~CHROM)
     
 # The other way is to plot them along the chromosomes.
 unassigned_rsid_err_vars_freq %>%
@@ -40,7 +60,11 @@ unassigned_rsid_err_vars_freq %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
   scale_y_continuous(labels = scales::comma,
                      breaks = scales::pretty_breaks(n = 10)) +
-  labs(title = "Chromosome Positions of the Subset of Unassigned SNPs (Neither REF nor ALT match reference)")
+  # labs(title = "Chromosome Positions of the Subset of Unassigned SNPs (Neither REF nor ALT match reference)") + 
+  labs(title = "Positions on Chromosomes of Subset") +
+  theme(text = element_text(size=20),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())
   
 
 
