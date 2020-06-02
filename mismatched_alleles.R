@@ -87,4 +87,7 @@ unassigned_rsid_data_genomes42 <- unassigned_rsid_err_vars %>%
   mutate(genomes_42 = "1"), by = c("CHROM" = "chr", 
                                    "POS" = "pos")) %>% 
   mutate(genomes_42 = ifelse(is.na(genomes_42), "0", genomes_42))
-unassigned_rsid_data_genomes42 %>% select(genomes_42) %>% table()
+  unassigned_rsid_data_genomes42 %>% select(genomes_42) %>% table()
+
+  unassigned_rsid_data_genomes42 %>% subset(genomes_42 == "0") %>% left_join(., unassigned_rsid_err_vars_freq[, c("POS", "INFO")], by = "POS") %>% select(-(one_of("QUAL", "FILTER", "genomes_42")))
+  
