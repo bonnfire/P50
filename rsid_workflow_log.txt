@@ -5,13 +5,23 @@
 cd /oasis/tscc/scratch/aschitre/round8/UNpruned_Soft
 
 
+## in R
 ## create text file of the ref_allele column
 # repeat all of the R processes below but replace the $ref_allele line with this:
-ref_allele <- as.character(getSeq(BSgenome.Rnorvegicus.UCSC.rn6, sub(":.*", "", unassigned_rsid_data$ID), start=as.numeric(sub(".*:", "", unassigned_rsid_data$ID)), end=as.numeric(sub(".*:", "", unassigned_rsid_data$ID))))
-ref_allele <- as.character(ref_allele)
-save(ref_allele, file = "ref_allele_unassigned.txt")
+ref_allele <- data.frame(REF = as.character(getSeq(BSgenome.Rnorvegicus.UCSC.rn6, sub(":.*", "", unassigned_rsid_data$ID), start=as.numeric(sub(".*:", "", unassigned_rsid_data$ID)), end=as.numeric(sub(".*:", "", unassigned_rsid_data$ID)))))
+ref_allele$REF <- as.character(ref_allele$REF)
+write.table(ref_allele, file = "ref_allele_unassigned.txt", sep = "\t", row.names = F, col.names = T, quote = F)
 
-## append the real ref column
+## extract the chrom, pos, id columns from the original txt append the real ref column
+cut -f -3 positions_order_freq.vcf | grep -v "##" > positions_order_obs.txt
+## merge the three columns and real ref contents
+paste positions_order_obs.txt ref_allele_unassigned.txt > positions_order_ref.txt
+## extract the alt column (named ref), qual, and filter
+cut -f 4,6,7 positions_order_freq.vcf | grep -v "##" > positions_alt.txt
+paste positions_order_obs.txt positions_alt.txt > positions_order_obs_alt.txt
+
+> positions_order_freqs_merge.txt
+
 ## rename ref 
 ## apend the other columns (alt) / currently called ref
 ## add the lines to metadata
@@ -40,7 +50,7 @@ cut -f -7 positions_order_freq.vcf | grep -v "##" > positions_order_obs.txt
 ## extract freq column and combine positions_order_obs.txt with freq column 
 cut -f5 positions_order_freq.afreq | awk '{$1="AF="$1; print}' | sed 's/AF=ALT_FREQS/INFO/' > info_freqs.txt   (NOT YET TESTED or awk -F'\t' '{ print $7 }')
 ## merge the info column and freqs contents
-paste positions_order_obs.txt info_frewhy qs.txt > positions_order_freqs_merge.txt
+paste positions_order_obs.txt info_freqs.txt > positions_order_freqs_merge.txt
 
 
 ## final product 
