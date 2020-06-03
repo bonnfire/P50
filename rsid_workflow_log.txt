@@ -7,17 +7,25 @@ cd /oasis/tscc/scratch/aschitre/round8/UNpruned_Soft
 
 ## in R
 ## create text file of the ref_allele column
-# repeat all of the R processes below but replace the $ref_allele line with this:
-ref_allele <- data.frame(REF = as.character(getSeq(BSgenome.Rnorvegicus.UCSC.rn6, sub(":.*", "", unassigned_rsid_data$ID), start=as.numeric(sub(".*:", "", unassigned_rsid_data$ID)), end=as.numeric(sub(".*:", "", unassigned_rsid_data$ID)))))
+module load R
+R
+library("BSgenome.Rnorvegicus.UCSC.rn6",lib.loc="/home/aschitre/R_libs/")
+library(vcfR)
+library(tidyverse)
+round8_vcf <- read.vcfR("positions_order_freq.vcf", verbose=F)
+round8_vcf_data <- as.data.frame((getFIX(round8_vcf)))
+round8_vcf_data$CHROM <- as.character(round8_vcf_data$CHROM) # for every column in names()
+ref_allele <- data.frame(REF = as.character(getSeq(BSgenome.Rnorvegicus.UCSC.rn6, sub(":.*", "", round8_vcf_data$ID), start=as.numeric(sub(".*:", "", round8_vcf_data$ID)), end=as.numeric(sub(".*:", "", round8_vcf_data$ID)))))
 ref_allele$REF <- as.character(ref_allele$REF)
 write.table(ref_allele, file = "ref_allele_unassigned.txt", sep = "\t", row.names = F, col.names = T, quote = F)
+
 
 ## extract the chrom, pos, id columns from the original txt append the real ref column
 cut -f -3 positions_order_freq.vcf | grep -v "##" > positions_order_obs.txt
 ## merge the three columns and real ref contents
 paste positions_order_obs.txt ref_allele_unassigned.txt > positions_order_ref.txt
 ## extract the alt column (named ref), qual, and filter
-cut -f 4,6,7 positions_order_freq.vcf | grep -v "##" > positions_alt.txt
+cut -f 4,6,7 positions_order_freq.vcf | grep -v "##" | sed -e '1s/REF/ALT/' > positions_alt.txt
 paste positions_order_obs.txt positions_alt.txt > positions_order_obs_alt.txt
 
 > positions_order_freqs_merge.txt
