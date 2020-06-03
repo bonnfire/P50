@@ -1,5 +1,26 @@
 ## log of workflow for positions
 
+
+### VERSION 3 WORKFLOW 
+cd /oasis/tscc/scratch/aschitre/round8/UNpruned_Soft
+
+
+## create text file of the ref_allele column
+# repeat all of the R processes below but replace the $ref_allele line with this:
+ref_allele <- as.character(getSeq(BSgenome.Rnorvegicus.UCSC.rn6, sub(":.*", "", unassigned_rsid_data$ID), start=as.numeric(sub(".*:", "", unassigned_rsid_data$ID)), end=as.numeric(sub(".*:", "", unassigned_rsid_data$ID))))
+ref_allele <- as.character(ref_allele)
+save(ref_allele, file = "ref_allele_unassigned.txt")
+
+## append the real ref column
+## rename ref 
+## apend the other columns (alt) / currently called ref
+## add the lines to metadata
+
+## run vcftools freq on the vcf file
+
+## reformat so that there are freqs
+
+
 ### VERSION 2 WORKFLOW  
 
 ## create a round8_unpruned like file called positions_order_freq.vcf (5/26 add, troubleshooting first email from ebi) 
@@ -19,7 +40,7 @@ cut -f -7 positions_order_freq.vcf | grep -v "##" > positions_order_obs.txt
 ## extract freq column and combine positions_order_obs.txt with freq column 
 cut -f5 positions_order_freq.afreq | awk '{$1="AF="$1; print}' | sed 's/AF=ALT_FREQS/INFO/' > info_freqs.txt   (NOT YET TESTED or awk -F'\t' '{ print $7 }')
 ## merge the info column and freqs contents
-paste positions_order_obs.txt info_freqs.txt > positions_order_freqs_merge.txt
+paste positions_order_obs.txt info_frewhy qs.txt > positions_order_freqs_merge.txt
 
 
 ## final product 
@@ -103,37 +124,3 @@ cp unassigned_rsid_withRN6ref.RData /projects/ps-palmer/b2lin/eva_ebi
 
 
 
-
-
-
-
-### VERSION 1 WORKFLOW BELOW
-
-# create the metadata 
-head -n 23 positions_order_freq.vcf > metadata_order_freq.txt
-echo "##INFO=<ID=AF,Number=A,Type=Float,Description=\"Allele Frequency\">" >>metadata_order_freq.txt
-awk '/##source=PLINKv2.00/ { print; print "##reference=ftp://ftp.ensembl.org/pub/release-100/fasta/rattus_norvegicus/dna/"; next }1' metadata_order_freq.txt >>metadata_order_freq.txt
-
-awk '/##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency">/ { print; print header.txt ; next }1' metadata_order_freq.txt >>metadata_order_freq.txt
-
-#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
-
-
-tail -n 4 positions
-head -n 500000 positions_merge_meta
-## get all rows of the columns of interest without the metadata 
-cat positions_order_freq.vcf | cut -f -8 | grep -v "##" > positions_order_columns.txt  
-
-## get the frequencies from the vcf file 
-cut -f 5 positions_order_freq.afreq  > positions_freq_columns.txt
-
-## join the two txt files
-paste positions_order_columns.txt positions_freq_columns.txt | awk '{print $1, $2, $3, $4, $5, $6, $7, $9}' | awk '{$8="AF="$8; print}' | sed -e '1s/AF=ALT_FREQS/INFO/' > positions_freq_merge.txt
-
-# add the metadata to the txt files 
-# XX look at this more t  omorrow... weird ending of file 
-cat metadata_order_freq.txt positions_freq_merge.txt > positions_merge_metadata.vcf
-
-## download and use executable
-wget https://github.com/EBIvariation/vcf-validator/releases/download/v0.9.4/vcf_validator_linux
-chmod u+x vcf_validator_linux.1
