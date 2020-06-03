@@ -11,11 +11,11 @@ module load R
 R
 library("BSgenome.Rnorvegicus.UCSC.rn6",lib.loc="/home/aschitre/R_libs/")
 library(vcfR)
-library(tidyverse)
-round8_vcf <- read.vcfR("positions_order_freq.vcf", verbose=F)
-round8_vcf_data <- as.data.frame((getFIX(round8_vcf)))
-round8_vcf_data$CHROM <- as.character(round8_vcf_data$CHROM) # for every column in names()
-ref_allele <- data.frame(REF = as.character(getSeq(BSgenome.Rnorvegicus.UCSC.rn6, sub(":.*", "", round8_vcf_data$ID), start=as.numeric(sub(".*:", "", round8_vcf_data$ID)), end=as.numeric(sub(".*:", "", round8_vcf_data$ID)))))
+
+positions_ids <- read.table("positions_order_obs.txt", header = F, sep = "", dec = ".")
+names(positions_ids) <- c("CHROM", "POS", "ID")
+positions_ids$ID <- as.character(positions_ids$ID)
+ref_allele <- data.frame(REF = as.character(getSeq(BSgenome.Rnorvegicus.UCSC.rn6, sub(":.*", "", positions_ids$ID), start=positions_ids$POS, end=positions_ids$POS)))
 ref_allele$REF <- as.character(ref_allele$REF)
 write.table(ref_allele, file = "ref_allele_unassigned.txt", sep = "\t", row.names = F, col.names = T, quote = F)
 
@@ -26,7 +26,7 @@ cut -f -3 positions_order_freq.vcf | grep -v "##" > positions_order_obs.txt
 paste positions_order_obs.txt ref_allele_unassigned.txt > positions_order_ref.txt
 ## extract the alt column (named ref), qual, and filter
 cut -f 4,6,7 positions_order_freq.vcf | grep -v "##" | sed -e '1s/REF/ALT/' > positions_alt.txt
-paste positions_order_obs.txt positions_alt.txt > positions_order_obs_alt.txt
+paste positions_order_ref.txt positions_alt.txt > positions_order_obs_alt.txt
 
 > positions_order_freqs_merge.txt
 
