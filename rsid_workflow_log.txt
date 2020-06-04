@@ -1,8 +1,39 @@
 ## log of workflow for positions
 
+## VERSION 4 WORKFLOW 
+head -n 30 round8_unpruned.vcf | grep -v "##" | head -1 | tr '\t' '\n' | wc -l
+
+1. calculate AF for all samples with PLINK (freq) command using the original bed bim and fam files. these files were created from .gen file which has Allele 1 (usually minor) and Allele 2 (usually major) instead of REF and ALT.
+/oasis/tscc/scratch/aschitre/software/plink2 --bfile round8_unpruned --keep-allele-order --recode vcf --freq --out round8_unpruned 
+
+2. EVA requires the AF field to be present in the VCF file. This is AF of the alternative allele.
+
+3. create a VCF file with REF allele taken from RN6.
+
+4. From the output of freq command get the frequency of ALT allele. (figure this out by comparing to the REF allele from RN6)
+Let's say for SNP chr1:55366, the REF is in fact the RN6 REF allele, then the AF to include in VCF will be 0.0610054.
+For SNP chr1:666374, the ALT allele is the RN6 REF allele, then the AF to include in VCF will be 1 - 0.0165935= 0.9834065
+#CHROM	ID		REF	ALT	ALT_FREQS	OBS_CT
+1	chr1:55366	A	T	0.0610054	12294
+1	chr1:666374	C	T	0.0165935	12294
+
+read in the text, create dataframe, 
+freqs written to round8_unpruned.afreq
+round8_unpruned_freq <- read.table("round8_unpruned.afreq", header = F)
+
+unassigned_rsid_data 
+
+# since ref_allele is too short  
+cbind(round8_unpruned_freq, ref_allele$ALLELE_FREQ)
+names(round8_unpruned_freq) <- c("CHROM", "ID", "ref", "alt", "ALT_FREQS", "OBS_CT")
+
+
+ref_allele$ALLELE_FREQ <- as.numeric(ref_allele$ALLELE_FREQ)
+ref_allele$INFO <- paste0("AF=", ifelse(ref_allele$REF == ref_allele$ALT, 1-ref_alelle$ALLELE_FREQ, ref_alelle$ALLELE_FREQ))
+ref_allele <- ref_allele[,-c("REF", "ALLELE_FREQ")]
 
 ### VERSION 3 WORKFLOW 
-cd /oasis/tscc/scratch/aschitre/round8/UNpruned_Soft
+cd /oasis/tscc/scratch/aschitre/round8/UNpruned_Soft  
 
 
 ## in R
@@ -24,17 +55,25 @@ write.table(ref_allele, file = "ref_allele_unassigned.txt", sep = "\t", row.name
 cut -f -3 positions_order_freq.vcf | grep -v "##" > positions_order_obs.txt
 ## merge the three columns and real ref contents
 paste positions_order_obs.txt ref_allele_unassigned.txt > positions_order_ref.txt
-## extract the alt column (named ref), qual, and filter
+## extract the alt column (named ref; rename), qual, and filter
 cut -f 4,6,7 positions_order_freq.vcf | grep -v "##" | sed -e '1s/REF/ALT/' > positions_alt.txt
 paste positions_order_ref.txt positions_alt.txt > positions_order_obs_alt.txt
 
-> positions_order_freqs_merge.txt
-
-## rename ref 
-## apend the other columns (alt) / currently called ref
 ## add the lines to metadata
+## extract the metadata
+head -n 30 positions_order_freq.vcf | grep "##" | grep -vE "##(INFO|FORMAT)" > positions_order_metadata.txt
+## change the metadata 
+# add reference genome
+echo "$(awk '/##source=PLINKv2.00/ { print; print "##reference=ftp://ftp.ensembl.org/pub/release-100/fasta/rattus_norvegicus/dna/"; next }1' positions_order_metadata.txt)" > positions_order_metadata.txt
+echo "$(sed -e '1s/4.3/4.2/' positions_order_metadata.txt)" > positions_order_metadata.txt
+
+
+# final vcf (without freq)
+cat positions_order_metadata.txt positions_order_obs_alt.txt > positions_ref_alt.vcf
 
 ## run vcftools freq on the vcf file
+module load vcftools
+vcftools --vcf positions_ref_alt.vcf --freq --out positions_ref_alt
 
 ## reformat so that there are freqs
 
