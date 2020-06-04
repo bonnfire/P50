@@ -20,17 +20,35 @@ For SNP chr1:666374, the ALT allele is the RN6 REF allele, then the AF to includ
 read in the text, create dataframe, 
 freqs written to round8_unpruned.afreq
 round8_unpruned_freq <- read.table("round8_unpruned.afreq", header = F)
-
-unassigned_rsid_data 
-
-# since ref_allele is too short  
-cbind(round8_unpruned_freq, ref_allele$ALLELE_FREQ)
 names(round8_unpruned_freq) <- c("CHROM", "ID", "ref", "alt", "ALT_FREQS", "OBS_CT")
 
+# since ref_allele is too short  
+round8_unpruned_freq_unassigned <- round8_unpruned_freq[which(round8_unpruned_freq$ID %in% unassigned_rsid_data$ID), ] ## from 3513494 to 1658497
 
-ref_allele$ALLELE_FREQ <- as.numeric(ref_allele$ALLELE_FREQ)
-ref_allele$INFO <- paste0("AF=", ifelse(ref_allele$REF == ref_allele$ALT, 1-ref_alelle$ALLELE_FREQ, ref_alelle$ALLELE_FREQ))
-ref_allele <- ref_allele[,-c("REF", "ALLELE_FREQ")]
+# now bind 
+round8_unpruned_freq_unassigned_withref <- cbind(round8_unpruned_freq_unassigned, REF = ref_allele)
+
+# change factors to character columns
+round8_unpruned_freq_unassigned_withref$CHROM <- as.character(round8_unpruned_freq_unassigned_withref$CHROM)
+round8_unpruned_freq_unassigned_withref$ID <- as.character(round8_unpruned_freq_unassigned_withref$ID)
+round8_unpruned_freq_unassigned_withref$ref <- as.character(round8_unpruned_freq_unassigned_withref$ref)
+round8_unpruned_freq_unassigned_withref$alt <- as.character(round8_unpruned_freq_unassigned_withref$alt)
+round8_unpruned_freq_unassigned_withref$REF <- as.character(round8_unpruned_freq_unassigned_withref$REF)
+round8_unpruned_freq_unassigned_withref$INFO <- paste0("AF=", with(round8_unpruned_freq_unassigned_withref, ifelse(REF==alt, 1-ALT_FREQS, ALT_FREQS)))
+round8_unpruned_freq_unassigned_withref$ALT <- with(round8_unpruned_freq_unassigned_withref, ifelse(REF == ref, alt, ref))
+
+
+# create subset (n=27279) to send to apurva
+round8_unpruned_nonmapped <- round8_unpruned_freq_unassigned_withref[which(round8_unpruned_freq_unassigned_withref$ref!=round8_unpruned_freq_unassigned_withref$REF & round8_unpruned_freq_unassigned_withref$alt!=round8_unpruned_freq_unassigned_withref$REF),]
+# remove the subset (from 1658497 to 1631218)
+round8_unpruned_freq_unassigned_tosubmit <- subset(round8_unpruned_freq_unassigned_withref, ref==REF | alt==REF)
+round8_unpruned_freq_unassigned_tosubmit$ALT <- with(round8_unpruned_freq_unassigned_tosubmit, ifelse(REF == ref, alt, ref))
+round8_unpruned_freq_unassigned_final <- subset(round8_unpruned_freq_unassigned_tosubmit, select = c(CHROM, ID, REF, ALT, INFO))
+
+
+
+
+
 
 ### VERSION 3 WORKFLOW 
 cd /oasis/tscc/scratch/aschitre/round8/UNpruned_Soft  
