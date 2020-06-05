@@ -48,11 +48,43 @@ write.table(round8_unpruned_nonmapped, file = "round8_unpruned_nonmapped.txt", s
 # remove the subset (from 1658497 to 1631218)
 round8_unpruned_freq_unassigned_tosubmit <- subset(round8_unpruned_freq_unassigned_withref, ref==REF | alt==REF)
 round8_unpruned_freq_unassigned_tosubmit$ALT <- with(round8_unpruned_freq_unassigned_tosubmit, ifelse(REF == ref, alt, ref))
-round8_unpruned_freq_unassigned_final <- subset(round8_unpruned_freq_unassigned_tosubmit, select = c(CHROM, ID, REF, ALT, INFO))
-write.table(round8_unpruned_freq_unassigned_final, file = "round8_unpruned_freq_wrangled.txt", sep = "\t", row.names = F, col.names = T, quote = F)
+round8_unpruned_freq_unassigned_tosubmit$POS <- gsub(".*:","", round8_unpruned_freq_unassigned_tosubmit$ID)
+round8_unpruned_freq_unassigned_tosubmit$QUAL <- as.character(".")
+round8_unpruned_freq_unassigned_tosubmit$FILTER <- as.character(".")
 
 
+round8_unpruned_freq_unassigned_final <- subset(round8_unpruned_freq_unassigned_tosubmit, select = c(CHROM, POS, ID, REF, ALT, QUAL, FILTER, INFO))
+write.table(round8_unpruned_freq_unassigned_final, file = "round8_unpruned_freq_wrangled.txt", sep = "\t", row.names = F, col.names = F, quote = F)
 
+
+## extract the metadata and add above columns lines under metadata
+## extract the metadata
+head -n 30 round8_unpruned.vcf | cut -f -8 | grep "#" | grep -vE "##(INFO|FORMAT)" > round8_unpruned_shortened_metadata.txt
+## change the metadata 
+# add reference genome
+echo "$(awk '/##source=PLINKv2.00/ { print; print "##reference=ftp://ftp.ensembl.org/pub/release-100/fasta/rattus_norvegicus/dna/"; next }1' round8_unpruned_shortened_metadata.txt)" > round8_unpruned_shortened_metadata.txt
+## add info line 
+echo "$(sed 's/.*CHROM.*/##INFO=<ID=AF,Number=A,Type=Float,Description=\"Allele Frequency\">\n&/' round8_unpruned_shortened_metadata.txt)" > round8_unpruned_shortened_metadata.txt
+# change the vcf version bc 4.3 is too advanced
+echo "$(sed -e '1s/4.3/4.2/' round8_unpruned_shortened_metadata.txt)" > round8_unpruned_shortened_metadata.txt
+
+
+## final
+# join to the text file and validate it
+cat round8_unpruned_shortened_metadata.txt round8_unpruned_freq_wrangled.txt > round8_unpruned_merge.vcf
+/oasis/tscc/scratch/b2lin/software/vcf_validator_linux.1 -i round8_unpruned_merge.vcf
+
+
+## rename the default file 
+mv round8_unpruned_merge.vcf rsid_unassigned_snps_2.vcf
+## copy onto permanent place
+cp rsid_unassigned_snps_2.vcf /projects/ps-palmer/b2lin/eva_ebi
+## created md5sum line for excel
+echo -n "rsid_unassigned_snps_2.vcf" | md5sum
+
+# clean the directory once done 
+shopt -s extglob # The extglob (Extended Pattern Matching) needs to be enabled in BASH (if it's not enabled):
+rm !(round8_unpruned.bed|round8_unpruned.bim|round8_unpruned.fam|unassigned_rsid_withRN6ref.RData|round8_unpruned_nonmapped.txt)
 
 
 ### VERSION 3 WORKFLOW 
