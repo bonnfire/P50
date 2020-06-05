@@ -40,11 +40,16 @@ round8_unpruned_freq_unassigned_withref$ALT <- with(round8_unpruned_freq_unassig
 
 # create subset (n=27279) to send to apurva
 round8_unpruned_nonmapped <- round8_unpruned_freq_unassigned_withref[which(round8_unpruned_freq_unassigned_withref$ref!=round8_unpruned_freq_unassigned_withref$REF & round8_unpruned_freq_unassigned_withref$alt!=round8_unpruned_freq_unassigned_withref$REF),]
+names(round8_unpruned_nonmapped)[names(round8_unpruned_nonmapped) == 'ref'] <- 'A1'
+names(round8_unpruned_nonmapped)[names(round8_unpruned_nonmapped) == 'alt'] <- 'A2'
+round8_unpruned_nonmapped <- subset(round8_unpruned_nonmapped, select = -INFO)
+write.table(round8_unpruned_nonmapped, file = "round8_unpruned_nonmapped.txt", sep = "\t", row.names = F, col.names = T, quote = F)
+ 
 # remove the subset (from 1658497 to 1631218)
 round8_unpruned_freq_unassigned_tosubmit <- subset(round8_unpruned_freq_unassigned_withref, ref==REF | alt==REF)
 round8_unpruned_freq_unassigned_tosubmit$ALT <- with(round8_unpruned_freq_unassigned_tosubmit, ifelse(REF == ref, alt, ref))
 round8_unpruned_freq_unassigned_final <- subset(round8_unpruned_freq_unassigned_tosubmit, select = c(CHROM, ID, REF, ALT, INFO))
-
+write.table(round8_unpruned_freq_unassigned_final, file = "round8_unpruned_freq_wrangled.txt", sep = "\t", row.names = F, col.names = T, quote = F)
 
 
 
