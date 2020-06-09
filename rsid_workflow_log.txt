@@ -87,6 +87,10 @@ shopt -s extglob # The extglob (Extended Pattern Matching) needs to be enabled i
 rm !(round8_unpruned.bed|round8_unpruned.bim|round8_unpruned.fam|unassigned_rsid_withRN6ref.RData|round8_unpruned_nonmapped.txt)
 
 
+
+
+
+
 ### VERSION 3 WORKFLOW 
 cd /oasis/tscc/scratch/aschitre/round8/UNpruned_Soft  
 
