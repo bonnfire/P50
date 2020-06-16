@@ -137,6 +137,10 @@ WFU_Meyer_excel_orig_test_df <- WFU_Meyer_excel_orig_test %>%
   rbindlist(idcol = "cohort", fill = T) %>% 
   as.data.frame()
 
+# change `16` column name to comment
+WFU_Meyer_excel_orig_test_df <- WFU_Meyer_excel_orig_test_df %>% 
+  rename("comment"="16")
+
 # make coat colors uniform
 WFU_Meyer_excel_orig_test_df$coatcolor <- gsub("([A-Z]+)(HOOD)", "\\1 \\2", mgsub::mgsub(WFU_Meyer_excel_orig_test_df$coatcolor, 
                                                                                c("BRN|[B|b]rown", "BLK|[B|b]lack", "HHOD|[H|h]ood|[H|h]hod", "[A|a]lbino"), 
