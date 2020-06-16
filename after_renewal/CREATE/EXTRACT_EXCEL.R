@@ -191,12 +191,12 @@ WFU_Meyer_excel_orig_test_df %>% group_by(rack) %>% count(sex) %>% ungroup() %>%
 
 ########################################################################################
 ###
-### JERRY
+### JERRY RICHARDS (AND PAUL MEYERS- RESEARCH PROJECT 2)
 ###
 ########################################################################################
 setwd("~/Dropbox (Palmer Lab)/Palmer Lab/Bonnie Lin/P50/WFU_ShipmentSheets")
 ## NY (also at the University at Buffalo)
-Jerry_excel_orig <- lapply(list.files(path = ".", pattern = "Jerry", ignore.case = T), function(x){
+WFU_Jerry_excel_orig <- lapply(list.files(path = ".", pattern = "Jerry", ignore.case = T), function(x){
   x <- u01.importxlsx(x)
   x <- x[[1]] %>% 
     mutate_all(as.character) %>% 
@@ -204,7 +204,7 @@ Jerry_excel_orig <- lapply(list.files(path = ".", pattern = "Jerry", ignore.case
   return(x)
 })
 
-Jerry_excel_orig_test <- Jerry_excel_orig %>% 
+WFU_Jerry_excel_orig_test <- WFU_Jerry_excel_orig %>% 
   uniform.var.names.testingu01() %>% 
   lapply(., function(x){
     x <- x %>% 
@@ -217,58 +217,58 @@ Jerry_excel_orig_test <- Jerry_excel_orig %>%
   })
 
 # quick scan
-Jerry_excel_orig_test %>% lapply(., sapply, unique)
+WFU_Jerry_excel_orig_test %>% lapply(., sapply, unique)
 
 # change date type
-Jerry_excel_orig_test <- uniform.date.testingu01(Jerry_excel_orig_test)
+WFU_Jerry_excel_orig_test <- uniform.date.testingu01(WFU_Jerry_excel_orig_test)
 
 
 # check id values
 idcols <- c("labanimalid", "accessid", "rfid")
-unique.values.length.by.col(Jerry_excel_orig_test, idcols)
+unique.values.length.by.col(WFU_Jerry_excel_orig_test, idcols)
 ## extract pilot (none as of cohort 2)
-Jerry_pilot <- lapply(Jerry_excel_orig_test, function(x){
+WFU_Jerry_pilot <- lapply(WFU_Jerry_excel_orig_test, function(x){
   x <- x %>% 
     subset(rfid == "PILOT")
   return(x)
 })
-names(Jerry_pilot) <- paste0("C", str_pad(readr::parse_number(list.files(path = ".", pattern = "Paul")), 2, side = "left", pad = "0"))
-Jerry_pilot <- Jerry_pilot %>% rbindlist(fill = T, idcol = "cohort") # replace list object to prevent creation of another dataframe object
+names(WFU_Jerry_pilot) <- paste0("C", str_pad(readr::parse_number(list.files(path = ".", pattern = "Paul")), 2, side = "left", pad = "0"))
+WFU_Jerry_pilot <- WFU_Jerry_pilot %>% rbindlist(fill = T, idcol = "cohort") # replace list object to prevent creation of another dataframe object
 ## remove pilot from df
-Jerry_excel_orig_test <- lapply(Jerry_excel_orig_test, function(x){
+WFU_Jerry_excel_orig_test <- lapply(WFU_Jerry_excel_orig_test, function(x){
   x <- x %>% 
     subset(rfid != "PILOT")
   return(x)
 })
-unique.values.length.by.col(Jerry_excel_orig_test, idcols)
+unique.values.length.by.col(WFU_Jerry_excel_orig_test, idcols)
 
 # %>% dplyr::filter(rfid != "PILOT") %>% get_dupes(rfid) # use to find inconsistencies
 
 # turn into df for the rest of the basic QC 
-names(Jerry_excel_orig_test) <- paste0("C", str_pad(readr::parse_number(list.files(path = ".", pattern = "Paul")), 2, side = "left", pad = "0"))
+names(WFU_Jerry_excel_orig_test) <- paste0("C", str_pad(readr::parse_number(list.files(path = ".", pattern = "Paul")), 2, side = "left", pad = "0"))
 
-Jerry_excel_orig_test_df <- Jerry_excel_orig_test %>% 
+WFU_Jerry_excel_orig_test_df <- WFU_Jerry_excel_orig_test %>% 
   rbindlist(idcol = "cohort", fill = T) %>% 
   as.data.frame()
 
 # make coat colors uniform
-Jerry_excel_orig_test_df$coatcolor <- gsub("([A-Z]+)(HOOD)", "\\1 \\2", mgsub::mgsub(Jerry_excel_orig_test_df$coatcolor, 
+WFU_Jerry_excel_orig_test_df$coatcolor <- gsub("([A-Z]+)(HOOD)", "\\1 \\2", mgsub::mgsub(WFU_Jerry_excel_orig_test_df$coatcolor, 
                                                                                   c("BRN|[B|b]rown", "BLK|[B|b]lack", "HHOD|[H|h]ood|[H|h]hod", "[A|a]lbino"), 
                                                                                   c("BROWN", "BLACK", "HOOD", "ALBINO"))) 
 
 # # add age of shipment and check consistency (* Note concern if animal was shipped older than 65 days)
-Jerry_excel_orig_test_df <- Jerry_excel_orig_test_df %>% mutate(dob = replace(dob, dob == lubridate::ymd("2020-12-31"), lubridate::ymd("2019-12-31"))) %>% 
+WFU_Jerry_excel_orig_test_df <- WFU_Jerry_excel_orig_test_df %>% mutate(dob = replace(dob, dob == lubridate::ymd("2020-12-31"), lubridate::ymd("2019-12-31"))) %>% 
   mutate(shipmentage = as.numeric(shipmentdate - dob) %>% round) 
-Jerry_excel_orig_test_df %>% group_by(cohort) %>% summarize(min_ship = min(shipmentage),
+WFU_Jerry_excel_orig_test_df %>% group_by(cohort) %>% summarize(min_ship = min(shipmentage),
                                                          med_ship = median(shipmentage), 
                                                          mean_ship = mean(shipmentage), 
                                                          max_ship = max(shipmentage),
                                                          CONCERN_OVER65 = sum(shipmentage > 65))
 
 # # add age of wean and check consistency (* Note concern if animal was weaned older than 27 days or younger than 18 days)
-Jerry_excel_orig_test_df <- Jerry_excel_orig_test_df %>% 
+WFU_Jerry_excel_orig_test_df <- WFU_Jerry_excel_orig_test_df %>% 
   mutate(weanage = as.numeric(dow - dob) %>% round) 
-Jerry_excel_orig_test_df %>% group_by(cohort) %>% summarize(min_wean = min(weanage),
+WFU_Jerry_excel_orig_test_df %>% group_by(cohort) %>% summarize(min_wean = min(weanage),
                                                          med_wean = median(weanage), 
                                                          mean_wean = mean(weanage), 
                                                          max_wean = max(weanage),
@@ -277,19 +277,19 @@ Jerry_excel_orig_test_df %>% group_by(cohort) %>% summarize(min_wean = min(weana
 
 
 ## check ID consistency
-Jerry_excel_orig_test_df %>% subset(!grepl("1DCD(\\d|\\D){4}", rfid)) %>% nrow()
+WFU_Jerry_excel_orig_test_df %>% subset(!grepl("1DCD(\\d|\\D){4}", rfid)) %>% nrow()
 
 
 ## check # of same sex siblings (diff litter)
-Jerry_excel_orig_test_df %>% janitor::get_dupes(sires, dames, sex) # if scrubs is not important, this code works, otherwise, add is.na(comment)
+WFU_Jerry_excel_orig_test_df %>% janitor::get_dupes(sires, dames, sex) # if scrubs is not important, this code works, otherwise, add is.na(comment)
 
 ## check # of same sex littermates (same litter)
-Jerry_excel_orig_test_df %>% janitor::get_dupes(sires, dames, litternumber, sex) #12 pairs
+WFU_Jerry_excel_orig_test_df %>% janitor::get_dupes(sires, dames, litternumber, sex) #12 pairs
 
 ## check number of same sex rats in each rack and get number of rat sexes in each rack
-Jerry_excel_orig_test_df %>% 
+WFU_Jerry_excel_orig_test_df %>% 
   group_by(rack) %>% count(sex) %>% ungroup() %>% janitor::get_dupes(rack)
-Jerry_excel_orig_test_df %>% group_by(rack) %>% count(sex) %>% ungroup() %>% select(n) %>% table
+WFU_Jerry_excel_orig_test_df %>% group_by(rack) %>% count(sex) %>% ungroup() %>% select(n) %>% table
 
 
 
