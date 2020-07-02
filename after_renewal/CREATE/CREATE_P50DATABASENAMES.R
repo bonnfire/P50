@@ -8,4 +8,4 @@ shipments_p50_df <- shipments %>% lapply(., function(x){
   x$litternumber = as.numeric(x$litternumber)
   x$littersize = as.numeric(x$littersize)
   return(x)
-}) %>% rbindlist(shipments, id = "p50", fill = T)
+}) %>% rbindlist(id = "p50", fill = T, use.names = T)

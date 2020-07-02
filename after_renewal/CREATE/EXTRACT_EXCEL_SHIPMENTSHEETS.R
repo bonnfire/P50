@@ -139,7 +139,8 @@ WFU_Meyer_excel_orig_test_df <- WFU_Meyer_excel_orig_test %>%
 
 # change `16` column name to comment
 WFU_Meyer_excel_orig_test_df <- WFU_Meyer_excel_orig_test_df %>% 
-  rename("comment"="16")
+  rename("comment"="16") %>% 
+  mutate(resolution = NA) # add resolution column
 
 # make coat colors uniform
 WFU_Meyer_excel_orig_test_df$coatcolor <- gsub("([A-Z]+)(HOOD)", "\\1 \\2", mgsub::mgsub(WFU_Meyer_excel_orig_test_df$coatcolor, 
@@ -243,6 +244,13 @@ WFU_Jerry_excel_orig_test <- lapply(WFU_Jerry_excel_orig_test, function(x){
 unique.values.length.by.col(WFU_Jerry_excel_orig_test, idcols)
 
 # %>% dplyr::filter(rfid != "PILOT") %>% get_dupes(rfid) # use to find inconsistencies
+
+## change names of columns
+WFU_Jerry_excel_orig_test[[1]] <- WFU_Jerry_excel_orig_test[[1]] %>% 
+  rename("shipmentbox"="shipmentcrate",
+         "comment" = "notes")
+WFU_Jerry_excel_orig_test <- mapply(cbind, WFU_Jerry_excel_orig_test, resolution = NA) 
+
 
 # turn into df for the rest of the basic QC 
 names(WFU_Jerry_excel_orig_test) <- paste0("C", str_pad(readr::parse_number(list.files(path = ".", pattern = "Paul")), 2, side = "left", pad = "0"))
@@ -350,6 +358,11 @@ WFU_Chen_excel_orig_test <- uniform.date.testingu01(WFU_Chen_excel_orig_test)
 idcols <- c("labanimalid", "accessid", "rfid")
 unique.values.length.by.col(WFU_Chen_excel_orig_test, idcols)
 
+
+## add comment and resolution column
+WFU_Chen_excel_orig_test <- lapply(WFU_Chen_excel_orig_test, cbind, comment = NA, resolution = NA) 
+
+
 # turn into df for the rest of the basic QC 
 names(WFU_Chen_excel_orig_test) <- paste0("C", str_pad(readr::parse_number(list.files(path = ".", pattern = "Chen")), 2, side = "left", pad = "0"))
 
@@ -380,6 +393,7 @@ WFU_Chen_excel_orig_test_df %>% group_by(cohort) %>% summarize(min_wean = min(we
                                                             max_wean = max(weanage),
                                                             CONCERN_OVER27 = sum(weanage > 27),
                                                             CONCERN_UNDER18 = sum(weanage < 18)) 
+
 
 
 ## check ID consistency
