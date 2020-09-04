@@ -92,6 +92,7 @@ WFU_Meyer_excel_orig <- lapply(list.files(path = ".", pattern = "Paul"), functio
   return(x)
 })
 
+# rename columns and remove all na columns
 WFU_Meyer_excel_orig_test <- WFU_Meyer_excel_orig %>% 
   uniform.var.names.testingu01() %>% 
   lapply(., function(x){
@@ -100,8 +101,11 @@ WFU_Meyer_excel_orig_test <- WFU_Meyer_excel_orig %>%
              "shipmentdate" = "dateshipment",
              "dames" = "dam",
              "sires" = "sire")
+    x <- x[, colSums(is.na(x)) < nrow(x)]
     return(x)
   })
+
+
 
 # change date type
 WFU_Meyer_excel_orig_test[[1]] <- WFU_Meyer_excel_orig_test[[1]] %>% 
@@ -227,7 +231,7 @@ WFU_Jerry_excel_orig_test <- uniform.date.testingu01(WFU_Jerry_excel_orig_test)
 # check id values
 idcols <- c("labanimalid", "accessid", "rfid")
 unique.values.length.by.col(WFU_Jerry_excel_orig_test, idcols)
-## extract pilot (none as of cohort 2)
+## extract pilot (none)
 WFU_Jerry_pilot <- lapply(WFU_Jerry_excel_orig_test, function(x){
   x <- x %>% 
     subset(rfid == "PILOT")
@@ -283,7 +287,7 @@ WFU_Jerry_excel_orig_test_df %>% group_by(cohort) %>% summarize(min_wean = min(w
                                                          CONCERN_OVER27 = sum(weanage > 27),
                                                          CONCERN_UNDER18 = sum(weanage < 18)) 
 
-
+  
 ## check ID consistency
 WFU_Jerry_excel_orig_test_df %>% subset(!grepl("1DCD(\\d|\\D){4}", rfid)) %>% nrow()
 
