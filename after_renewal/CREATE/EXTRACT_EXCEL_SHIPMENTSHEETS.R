@@ -77,6 +77,87 @@ unique.values.length.by.col <- function(df, var){
 } # function should be used for identification variables, and for other cases (testing)
 
 
+
+## functions by cohort 
+#### important functions
+# use this function to make variables uniform once the variables are in the names()
+uniform.var.names.cohort <- function(df){
+  names(df) <- mgsub::mgsub(names(df),
+                            c(" |\\.", "#", "Transponder ID", "Date of Wean|Wean Date|Date Wean","Animal", "Shipping|Ship", "Dams|Dam", "Sire"),
+                            c("", "Number", "RFID", "DOW","LabAnimal", "Shipment", "Dames", "Sires"))
+  
+  names(df) <- mgsub::mgsub(names(df),
+                            c("DateofShipment|DateShipment", "LabAnimalNumber"), 
+                            c("ShipmentDate", "LabAnimalID")) # actually keep the column named lab animal number
+  names(df) <- tolower(names(df))
+  return(df)
+}
+
+# use this function to get rid of columns that are all na's or contain redundant information
+remove.irr.columns <- function(df){
+  df <- df[ , colSums(is.na(df)) == 0]  # remove columns with any na's, checked for no na rows 
+  df <- df %>% 
+    select(-matches("age|last"))  # remove age in day columns or last 5 digit columns
+  return(df)
+}
+
+# use this function to make all coat colors unifrom
+uniform.coatcolors.df <- function(df){
+  df$coatcolor <- toupper(df$coatcolor)  
+  df$coatcolor <- gsub("([A-Z]+)(HOOD)", "\\1 \\2", mgsub::mgsub(df$coatcolor, 
+                                                                 c("BRN|[B|b]rown", "BLK|[B|b]lack", "HHOD|[H|h]ood|[H|h]hod", "[A|a]lbino"), 
+                                                                 c("BROWN", "BLACK", "HOOD", "ALBINO"))) 
+  return(df)
+}
+
+
+## add shipment age and weaning age AND QC 
+add.age.qc <- function(df){
+  date_vars <- c("dob", "dow", "shipmentdate")
+  datefunction <- function(x){
+    if(lubridate::is.POSIXct(x) == F & all(grepl("^\\d{5}$", x))){
+      as.POSIXct(as.numeric(x) * (60*60*24), origin="1899-12-30", tz="UTC", format="%Y-%m-%d")
+    } else x
+  }
+  df <- df %>% 
+    mutate_at(.vars = vars(date_vars), .funs = datefunction)
+  
+  df <- df %>% 
+    mutate(shipmentage = as.numeric(difftime(shipmentdate, dob, units = "days")) %>% round)
+  try(if(any(df$shipmentage > 65)) 
+    stop("Some animals were too old to ship"))
+  
+  df <- df %>%
+    mutate(weanage = as.numeric(difftime(dow, dob, units = "days")) %>% round) 
+  try(if(any(df$weanage > 25))
+    stop("Some animals were too old to wean"))    
+  
+  return(df)
+}
+
+## QC for duplicated or incorrectly formatted rfids, genetic diversity in siblings 
+id.qc <- function(df){
+  ## check if any rfid are duplicated
+  suppressMessages(janitor::get_dupes(df, rfid))
+  
+  ## check for duplicated accessid and labanimalid
+  suppressMessages(janitor::get_dupes(df, accessid))
+  suppressMessages(janitor::get_dupes(df, labanimalid))
+  
+  # check if any rfid's are not in the usual 15 character format
+  
+  try(if(any(!grepl("1DCD(\\d|\\D){4}", df$rfid)))
+    stop("Inconsistent rfid formatting"))
+  
+  ## check # of same sex siblings (diff litter)
+  try(if(nrow(df %>% janitor::get_dupes(sires, dames, sex)) != 1)
+    stop("Same sex siblings in different litter"))
+  
+  ## check # of same sex littermates (same litter)
+  try(if(nrow(df %>% janitor::get_dupes(sires, dames, litternumber,sex)) != 1)
+    stop("Same sex siblings in same litter"))
+}
+
 ########################################################################################
 ###
 ### PAUL MEYER (RESEARCH PROJECT 1)
@@ -187,6 +268,8 @@ WFU_Meyer_excel_orig_test_df %>%
 WFU_Meyer_excel_orig_test_df %>% group_by(rack) %>% count(sex) %>% ungroup() %>% select(n) %>% table
 
 
+## add cohort 3 to sample_tracking.sample_metadata
+
 
 
 
@@ -290,7 +373,7 @@ WFU_Jerry_excel_orig_test_df %>% group_by(cohort) %>% summarize(min_wean = min(w
   
 ## check ID consistency
 WFU_Jerry_excel_orig_test_df %>% subset(!grepl("1DCD(\\d|\\D){4}", rfid)) %>% nrow()
-
+  
 
 ## check # of same sex siblings (diff litter)
 WFU_Jerry_excel_orig_test_df %>% janitor::get_dupes(sires, dames, sex) # if scrubs is not important, this code works, otherwise, add is.na(comment)
@@ -302,6 +385,31 @@ WFU_Jerry_excel_orig_test_df %>% janitor::get_dupes(sires, dames, litternumber, 
 WFU_Jerry_excel_orig_test_df %>% 
   group_by(rack) %>% count(sex) %>% ungroup() %>% janitor::get_dupes(rack)
 WFU_Jerry_excel_orig_test_df %>% group_by(rack) %>% count(sex) %>% ungroup() %>% select(n) %>% table
+
+
+# prep cohorts 01-03 for database
+WFU_Jerry_excel_orig_test_df <- WFU_Jerry_excel_orig_test_df %>% 
+  mutate_at(vars(one_of("dob", "dow", "shipmentdate")), as.Date) %>%
+  mutate_at(vars(matches("litter|age|shipmentbox")), as.numeric) %>%
+  rename("comments" = "comment") %>%
+  select(cohort, sires, dames, labanimalid, accessid, sex, rfid, dob, dow, shipmentdate, litternumber, littersize, coatcolor, earpunch, rack, shipmentbox, shipmentage, weanage, comments, resolution) # to match the wfu sql in db
+
+# add C04 - Jerry
+jerry_04_wfu_metadata <- u01.importxlsx("~/Dropbox (Palmer Lab)/Palmer Lab/Bonnie Lin/P50/WFU_ShipmentSheets/Jerry #4 Shipping Sheet.xlsx")$`Jerry` %>% 
+  mutate(cohort = "C04") %>% 
+  uniform.var.names.cohort %>%
+  remove.irr.columns %>% 
+  uniform.coatcolors.df %>% 
+  add.age.qc 
+jerry_04_wfu_metadata %>% id.qc
+# add comments 
+jerry_04_wfu_metadata <- jerry_04_wfu_metadata %>% 
+  select(-rfid) %>% #from id.qc
+  rename("rfid" = "finalcheck") %>% 
+  mutate(comments = "NA", resolution = "NA") %>%
+  mutate(comments = replace(comments, rfid == "1DCD195B", "RETRANSPONDERED CHIP IS IN MIDDLE OF THE BACK -- might have double transponders, but one should be invalid")) %>% 
+  select(cohort, sires, dames, labanimalid, accessid, sex, rfid, dob, dow, shipmentdate, litternumber, littersize, coatcolor, earpunch, rack, shipmentbox, shipmentage, weanage, comments, resolution) # to match the wfu sql in db
+
 
 
 
@@ -414,3 +522,28 @@ WFU_Chen_excel_orig_test_df %>% janitor::get_dupes(sires, dames, litternumber, s
 WFU_Chen_excel_orig_test_df %>% 
   group_by(rack) %>% count(sex) %>% ungroup() %>% janitor::get_dupes(rack)
 WFU_Chen_excel_orig_test_df %>% group_by(rack) %>% count(sex) %>% ungroup() %>% select(n) %>% table
+
+
+
+# prep cohorts 01-02 for database
+WFU_Chen_excel_orig_test_df <- WFU_Chen_excel_orig_test_df %>% 
+  mutate_at(vars(one_of("dob", "dow", "shipmentdate")), as.Date) %>%
+  mutate_at(vars(matches("litter|age|shipmentbox")), as.numeric) %>%
+  rename("comments" = "comment") %>%
+  select(cohort, sires, dames, labanimalid, accessid, sex, rfid, dob, dow, shipmentdate, litternumber, littersize, coatcolor, earpunch, rack, shipmentbox, shipmentage, weanage, comments, resolution) # to match the wfu sql in db
+
+# add C03 - Chen
+chen_03_wfu_metadata <- u01.importxlsx("~/Dropbox (Palmer Lab)/Palmer Lab/Bonnie Lin/P50/WFU_ShipmentSheets/Chen #3 Shipping Sheet.xlsx")$`Chen` %>% 
+  mutate(cohort = "C03") %>% 
+  uniform.var.names.cohort %>%
+  remove.irr.columns %>% 
+  uniform.coatcolors.df %>% 
+  add.age.qc 
+chen_03_wfu_metadata %>% id.qc
+# add comments 
+chen_03_wfu_metadata <- chen_03_wfu_metadata %>% 
+  mutate(rfid = toupper(rfid)) %>% #from id.qc
+  mutate(comments = "NA", resolution = "NA") %>%
+  select(cohort, sires, dames, labanimalid, accessid, sex, rfid, dob, dow, shipmentdate, litternumber, littersize, coatcolor, earpunch, rack, shipmentbox, shipmentage, weanage, comments, resolution) # to match the wfu sql in db
+
+
