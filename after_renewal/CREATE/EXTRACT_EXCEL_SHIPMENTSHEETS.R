@@ -120,7 +120,7 @@ add.age.qc <- function(df){
     } else x
   }
   df <- df %>% 
-    mutate_at(.vars = vars(date_vars), .funs = datefunction)
+    mutate_at(vars(one_of(date_vars)), .funs = datefunction)
   
   df <- df %>% 
     mutate(shipmentage = as.numeric(difftime(shipmentdate, dob, units = "days")) %>% round)
@@ -270,6 +270,31 @@ WFU_Meyer_excel_orig_test_df %>% group_by(rack) %>% count(sex) %>% ungroup() %>%
 
 ## add cohort 3 to sample_tracking.sample_metadata
 
+# add C04 - Meyer
+meyer_04_wfu_metadata <- u01.importxlsx("~/Dropbox (Palmer Lab)/Palmer Lab/Bonnie Lin/P50/WFU_ShipmentSheets/Paul #4 Shipping sheet.xlsx")$`Paul` %>%
+  mutate(cohort = "C04") %>%
+  uniform.var.names.cohort %>%
+  remove.irr.columns %>%
+  uniform.coatcolors.df %>%
+  add.age.qc
+meyer_04_wfu_metadata %>% id.qc
+# add comments
+# meyer_04_wfu_metadata <- meyer_04_wfu_metadata %>%
+#   mutate(comments = "NA", resolution = "NA") %>%
+#   select(cohort, sires, dames, labanimalid, accessid, sex, rfid, dob, dow, shipmentdate, litternumber, littersize, coatcolor, earpunch, rack, shipmentbox, shipmentage, weanage, comments, resolution) # to match the wfu sql in db
+
+# add C05 - Meyer
+meyer_05_wfu_metadata <- u01.importxlsx("~/Dropbox (Palmer Lab)/Palmer Lab/Bonnie Lin/P50/WFU_ShipmentSheets/Paul #5 Shipping Sheet.xlsx")$`WORKSHEET` %>%
+  mutate(cohort = "C05") %>%
+  uniform.var.names.cohort %>%
+  remove.irr.columns %>%
+  uniform.coatcolors.df %>%
+  add.age.qc
+meyer_05_wfu_metadata %>% id.qc ## XX COME BACK TO THIS ONE 01/05/2020
+# add comments
+# meyer_05_wfu_metadata <- meyer_05_wfu_metadata %>%
+#   mutate(comments = "NA", resolution = "NA") %>%
+#   select(cohort, sires, dames, labanimalid, accessid, sex, rfid, dob, dow, shipmentdate, litternumber, littersize, coatcolor, earpunch, rack, shipmentbox, shipmentage, weanage, comments, resolution) # to match the wfu sql in db
 
 
 
@@ -400,7 +425,8 @@ jerry_04_wfu_metadata <- u01.importxlsx("~/Dropbox (Palmer Lab)/Palmer Lab/Bonni
   uniform.var.names.cohort %>%
   remove.irr.columns %>% 
   uniform.coatcolors.df %>% 
-  add.age.qc 
+  add.age.qc %>% 
+  mutate(rfid = toupper(rfid))
 jerry_04_wfu_metadata %>% id.qc
 # add comments 
 jerry_04_wfu_metadata <- jerry_04_wfu_metadata %>% 
