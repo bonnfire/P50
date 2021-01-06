@@ -304,7 +304,7 @@ meyer_05_wfu_metadata %>% id.qc ## XX COME BACK TO THIS ONE 01/05/2020
 
 ########################################################################################
 ###
-### JERRY RICHARDS (AND PAUL MEYERS- RESEARCH PROJECT 2)
+### DAVID DIETZ (AND PAUL MEYERS- RESEARCH PROJECT 2)
 ###
 ########################################################################################
 setwd("~/Dropbox (Palmer Lab)/Palmer Lab/Bonnie Lin/P50/WFU_ShipmentSheets")
