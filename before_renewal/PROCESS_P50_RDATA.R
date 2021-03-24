@@ -55,5 +55,9 @@ metadata_db_other <- metadata_db %>%
             mutate(project_name = "r01_monica_jablonski")) %>% 
   distinct()
 
+## read in metadata for p50
+load("~/Dropbox (Palmer Lab)/Palmer Lab/Bonnie Lin/P50/P50_metadata.RData")
+metadata %>% 
+  subset(grepl("1761|1779|1790|1749", transpnum))
   
 

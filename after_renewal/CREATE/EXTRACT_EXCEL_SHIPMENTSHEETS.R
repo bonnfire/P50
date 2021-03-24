@@ -96,6 +96,7 @@ uniform.var.names.cohort <- function(df){
 # use this function to get rid of columns that are all na's or contain redundant information
 remove.irr.columns <- function(df){
   df <- df[ , colSums(is.na(df)) == 0]  # remove columns with any na's, checked for no na rows 
+  df <- df[!duplicated(as.list(df))] ## remove columns that have repeat values (redundant)
   df <- df %>% 
     select(-matches("age|last"))  # remove age in day columns or last 5 digit columns
   return(df)
@@ -561,7 +562,7 @@ WFU_Chen_excel_orig_test_df <- WFU_Chen_excel_orig_test_df %>%
 # add C03 - Chen
 chen_03_wfu_metadata <- u01.importxlsx("~/Dropbox (Palmer Lab)/Palmer Lab/Bonnie Lin/P50/WFU_ShipmentSheets/Chen #3 Shipping Sheet.xlsx")$`Chen` %>% 
   mutate(cohort = "C03") %>% 
-  uniform.var.names.cohort %>%
+  uniform.var.names.cohort %>%s
   remove.irr.columns %>% 
   uniform.coatcolors.df %>% 
   add.age.qc 
@@ -572,4 +573,47 @@ chen_03_wfu_metadata <- chen_03_wfu_metadata %>%
   mutate(comments = "NA", resolution = "NA") %>%
   select(cohort, sires, dames, labanimalid, accessid, sex, rfid, dob, dow, shipmentdate, litternumber, littersize, coatcolor, earpunch, rack, shipmentbox, shipmentage, weanage, comments, resolution) # to match the wfu sql in db
 
+# add C04 - Chen
+chen_04_wfu_metadata <- u01.importxlsx("~/Dropbox (Palmer Lab)/Palmer Lab/Bonnie Lin/P50/WFU_ShipmentSheets/Chen #4 Shipping Sheet.xlsx")$`Chen` %>% 
+  mutate(cohort = "C04") %>% 
+  uniform.var.names.cohort %>%
+  remove.irr.columns %>% 
+  uniform.coatcolors.df %>% 
+  add.age.qc %>% 
+  rename("rfid" = "rfid6")
+chen_04_wfu_metadata %>% id.qc
+# add comments 
+chen_04_wfu_metadata <- chen_04_wfu_metadata %>% 
+  mutate(rfid = toupper(rfid)) %>% #from id.qc
+  mutate(comments = "NA", resolution = "NA") %>%
+  select(cohort, sires, dames, labanimalid, accessid, sex, rfid, dob, dow, shipmentdate, litternumber, littersize, coatcolor, earpunch, rack, shipmentbox, shipmentage, weanage, comments, resolution) # to match the wfu sql in db
+
+
+
+## add batch 17
+chen_17_wfu_metadata <- openxlsx::read.xlsx("~/Dropbox (Palmer Lab)/Palmer Lab/Bonnie Lin/P50/Tissues/Fw _Tissue_dissection_table_and_storage_/RatSampleCollection_Batch17_TN_20-12-2019 - complete.xlsx") %>% 
+  clean_names() %>% 
+  mutate(cohort = "C17") %>% 
+  rename("rfid" = "rat_rfid", 
+         "sex" = "sex_m_f", 
+         "comments" = "comments_e_g_missexed_no_comments_empty",
+         "resolution" = "resolution_flag_all_flag_table_ignore",
+         "experimental_track" = "experimental_track_breeder_ivsa") %>% 
+  mutate(rfid = toupper(rfid)) %>% 
+  subset(!grepl("EXAMPLE", rfid))
+
+
+## add batch 18
+chen_18_wfu_metadata <- openxlsx::read.xlsx("~/Dropbox (Palmer Lab)/Palmer Lab/Bonnie Lin/P50/Tissues/Fw _Tissue_dissection_table_and_storage_/RatSampleCollection_Batch18_TN_28-10-2020-complete.xlsx") %>% 
+  clean_names() %>% 
+  mutate(cohort = "C18") %>% 
+  rename("rfid" = "rat_rfid", 
+         "sex" = "sex_m_f", 
+         "comments" = "comments_e_g_missexed_no_comments_empty",
+         "resolution" = "resolution_flag_all_flag_table_ignore",
+         "experimental_track" = "experimental_track_breeder_ivsa") %>% 
+  mutate(rfid = toupper(rfid)) %>% 
+  subset(!grepl("EXAMPLE", rfid))
+
+## rbind(chen_17_wfu_metadata %>% select(rfid,experimental_track), chen_18_wfu_metadata %>% select(rfid,experimental_track)) %>% left_join(spleen_01112021) %>% subset(experimental_track == "IVSA") %>% subset(is.na(box_number))
 
